@@ -21,7 +21,6 @@ int main(int argc, char** argv) {
         // todo: make it a shared ptr, but for now I cannot be bothered so it will be a raw pointer
         FullWindow* fullWindow = Init::Init();
         fullWindow->Listen(true);
-        SDL_DestroyWindow(fullWindow->window);
         delete fullWindow;
     }
     SDL_Quit();

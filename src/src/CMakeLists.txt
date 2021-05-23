@@ -4,6 +4,7 @@ target_sources(Arrowpen
 )
 
 target_include_directories(Arrowpen
+    PRIVATE sdlhelp
     PRIVATE sm
     PRIVATE window
     PRIVATE graphics
@@ -11,6 +12,7 @@ target_include_directories(Arrowpen
     PRIVATE static-content
 )
 
+add_subdirectory(sdlhelp)
 add_subdirectory(sm)
 add_subdirectory(window)
 add_subdirectory(graphics)
