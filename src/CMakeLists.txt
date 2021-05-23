@@ -1,0 +1,2 @@
+target_include_directories(Arrowpen PRIVATE src)
+add_subdirectory(src)
