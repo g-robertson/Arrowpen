@@ -4,7 +4,7 @@
 #include "color.hpp"
 #include "actor.hpp"
 
-class RectangleActor : Actor {
+class RectangleActor : public Actor {
     public:
         RectangleActor(Color* c, int x, int y, int w, int h, bool filled = true);
         void Draw(SDL_Renderer* renderer);

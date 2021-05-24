@@ -1,8 +1,8 @@
 #pragma once
 #include "actor.hpp"
 
-class LineActor : Actor {
+class LineActor : public Actor {
     public:
         LineActor();
-        
+        void Draw(SDL_Renderer* renderer);
 };
