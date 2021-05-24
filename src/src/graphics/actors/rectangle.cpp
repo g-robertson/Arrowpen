@@ -10,5 +10,4 @@ RectangleActor::RectangleActor(Color* c, int x, int y, int w, int h, bool filled
 void RectangleActor::Draw(SDL_Renderer* renderer) {
     SDL_SetRenderDrawColor(renderer, ExpandColor(this->color));
     SDL_RenderFillRect(renderer, this->rect.get());
-    SDL_RenderPresent(renderer);
 }

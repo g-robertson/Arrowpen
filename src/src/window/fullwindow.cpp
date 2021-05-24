@@ -22,6 +22,7 @@ void FullWindow::Listen(bool allowSlow) {
     auto sdlEvent = std::shared_ptr<SDL_Event>(new SDL_Event);
 
     while (SDL_WaitEvent(sdlEvent.get())) {
+        this->graphics->Draw(this->renderer.get());
         if (!this->genericEventHandler->Handle(this, sdlEvent) || !this->screenEventHandler->Handle(this, sdlEvent)) {
             return;
         }

@@ -1,7 +1,8 @@
 #include "graphics.hpp"
 
-Graphics::Graphics() {
-
+Graphics::Graphics() {}
+Graphics::Graphics(std::vector<std::shared_ptr<Actor>> actors) {
+    this->actors = actors;
 }
 
 void Graphics::Draw(SDL_Renderer* renderer) {
@@ -10,4 +11,5 @@ void Graphics::Draw(SDL_Renderer* renderer) {
     for (size_t i = 0; i < this->actors.size(); ++i) {
         this->actors[i]->Draw(renderer);
     }
+    SDL_RenderPresent(renderer);
 }

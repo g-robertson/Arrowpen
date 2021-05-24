@@ -8,6 +8,7 @@
 class Graphics {
     public:
         Graphics();
+        Graphics(std::vector<std::shared_ptr<Actor>> actors);
         void Draw(SDL_Renderer* renderer);
 
         std::vector<std::shared_ptr<Actor>> actors;
