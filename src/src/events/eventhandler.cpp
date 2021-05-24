@@ -7,5 +7,7 @@ bool EventHandler::Handle(FullWindow* fullWindow, std::shared_ptr<SDL_Event> sdl
         return false;
     }
     SEventCallback(SDL_QUIT);
+
+    #undef SEventCallback
     return true;
 }
