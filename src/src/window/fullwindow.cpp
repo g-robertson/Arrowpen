@@ -2,15 +2,15 @@
 #include <chrono>
 #include "screens.hpp"
 #include "fullwindow.hpp"
-
 #include "sdlhelp.hpp"
 
 FullWindow::FullWindow(
-    std::unique_ptr<SDL_Window, _SDL_DestroyWindow> window,
+    SDL_Window* window,
     Static::Screens::ScreenNames screen,
     std::shared_ptr<EventHandler> eventHandler
 ) {
-    this->window = std::move(window);
+    this->window = UPtrSDL_Window(window);
+    this->renderer = UPtrSDL_Renderer(SDL_CreateRenderer(this->window.get(), -1, SDL_RENDERER_ACCELERATED));
     this->screen = screen;
     auto ss = Static::Screens::SelectScreen(screen);
     this->graphics = ss->graphics;

@@ -15,13 +15,14 @@ class Graphics;
 class FullWindow {
     public:
         FullWindow(
-            std::unique_ptr<SDL_Window, _SDL_DestroyWindow> window,
+            SDL_Window* window,
             Static::Screens::ScreenNames screen,
             std::shared_ptr<EventHandler> eventHandler
         );
         void Listen(bool allowSlow = false);
 
-        std::unique_ptr<SDL_Window, _SDL_DestroyWindow> window;
+        UPtrSDL_Window window;
+        UPtrSDL_Renderer renderer;
         Static::Screens::ScreenNames screen;
         std::shared_ptr<Graphics> graphics;
         std::shared_ptr<EventHandler> screenEventHandler;
