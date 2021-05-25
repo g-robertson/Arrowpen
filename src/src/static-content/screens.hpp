@@ -25,14 +25,38 @@ namespace Static {
             std::shared_ptr<Screens::ScreenSelection>(new Screens::ScreenSelection({
                 Screens::NULL_SCREEN,
                 std::shared_ptr<Graphics>(new Graphics(std::vector<std::shared_ptr<Actor>>({
-                    std::shared_ptr<Actor>(new RectangleActor(new Color(0, 0, 0), 0, 0, 200, 2000)),
-                    std::shared_ptr<Actor>(new RectangleActor(new Color(255, 0, 0), 200, 0, 200, 2000)),
-                    std::shared_ptr<Actor>(new RectangleActor(new Color(0, 255, 0), 400, 0, 200, 2000)),
-                    std::shared_ptr<Actor>(new RectangleActor(new Color(0, 0, 255), 600, 0, 200, 2000)),
-                    std::shared_ptr<Actor>(new RectangleActor(new Color(255, 255, 0), 800, 0, 200, 2000)),
-                    std::shared_ptr<Actor>(new RectangleActor(new Color(255, 0, 255), 1000, 0, 200, 2000)),
-                    std::shared_ptr<Actor>(new RectangleActor(new Color(0, 255, 255), 1200, 0, 200, 2000)),
-                    std::shared_ptr<Actor>(new RectangleActor(new Color(255, 255, 255), 1400, 0, 2000, 2000)),
+                    // primary and secondary colors and white and black
+                    std::shared_ptr<Actor>(new RectangleActor(Colors::BLACK, 0, 0, 100, 2000)),
+                    std::shared_ptr<Actor>(new RectangleActor(Colors::RED, 1*100, 0, 100, 2000)),
+                    std::shared_ptr<Actor>(new RectangleActor(Colors::GREEN, 2*100, 0, 100, 2000)),
+                    std::shared_ptr<Actor>(new RectangleActor(Colors::BLUE, 3*100, 0, 100, 2000)),
+                    std::shared_ptr<Actor>(new RectangleActor(Colors::YELLOW, 4*100, 0, 100, 2000)),
+                    std::shared_ptr<Actor>(new RectangleActor(Colors::PURPLE, 5*100, 0, 100, 2000)),
+                    std::shared_ptr<Actor>(new RectangleActor(Colors::CYAN, 6*100, 0, 100, 2000)),
+                    std::shared_ptr<Actor>(new RectangleActor(Colors::WHITE, 7*100, 0, 100, 2000)),
+
+                    // rainbow
+                    std::shared_ptr<Actor>(new RectangleActor(Colors::RED, 8*100, 0, 100, 2000)),
+                    std::shared_ptr<Actor>(new RectangleActor(Colors::ORANGE, 9*100, 0, 100, 2000)),
+                    std::shared_ptr<Actor>(new RectangleActor(Colors::YELLOW, 10*100, 0, 100, 2000)),
+                    std::shared_ptr<Actor>(new RectangleActor(Colors::GREEN, 11*100, 0, 100, 2000)),
+                    std::shared_ptr<Actor>(new RectangleActor(Colors::BLUE, 12*100, 0, 100, 2000)),
+                    std::shared_ptr<Actor>(new RectangleActor(Colors::INDIGO, 13*100, 0, 100, 2000)),
+                    std::shared_ptr<Actor>(new RectangleActor(Colors::PURPLE, 14*100, 0, 100, 2000)),
+
+                    // grayscale
+                    std::shared_ptr<Actor>(new RectangleActor(Colors::WHITE, 0, 0, 50, 200)),
+                    std::shared_ptr<Actor>(new RectangleActor(Colors::GRAYCF, 50 + (0 * 200), 0, 200, 200)),
+                    std::shared_ptr<Actor>(new RectangleActor(Colors::GRAYAF, 50 + (1 * 200), 0, 200, 200)),
+                    std::shared_ptr<Actor>(new RectangleActor(Colors::GRAY9F, 50 + (2 * 200), 0, 200, 200)),
+                    std::shared_ptr<Actor>(new RectangleActor(Colors::GRAY7F, 50 + (3 * 200), 0, 200, 200)),
+                    std::shared_ptr<Actor>(new RectangleActor(Colors::GRAY5F, 50 + (4 * 200), 0, 200, 200)),
+                    std::shared_ptr<Actor>(new RectangleActor(Colors::GRAY3F, 50 + (5 * 200), 0, 200, 200)),
+                    std::shared_ptr<Actor>(new RectangleActor(Colors::GRAY1F, 50 + (6 * 200), 0, 200, 200)),
+                    std::shared_ptr<Actor>(new RectangleActor(Colors::BLACK, 50 + (7 * 200), 0, 50, 200)),
+
+                    // pink
+                    std::shared_ptr<Actor>(new RectangleActor(Colors::PINK, 0, 200, 1500, 50))
                 }))),
                 std::shared_ptr<EventHandler>(new EventHandler)
             }))

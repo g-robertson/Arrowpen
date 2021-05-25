@@ -6,7 +6,7 @@
 
 class RectangleActor : public Actor {
     public:
-        RectangleActor(Color* c, int x, int y, int w, int h, bool filled = true);
+        RectangleActor(const Color& c, int x, int y, int w, int h, bool filled = true);
         void Draw(SDL_Renderer* renderer);
 
         std::shared_ptr<SDL_Rect> rect;
