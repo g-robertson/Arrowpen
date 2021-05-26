@@ -15,7 +15,3 @@ void RectangleActor::Draw(SDL_Renderer* renderer) {
     SDL_SetRenderDrawColor(renderer, ExpandColor(this->color));
     SDL_RenderFillRect(renderer, this->rect.get());
 }
-
-bool RectangleActor::Handle(FullWindow* fullWindow, std::weak_ptr<SDL_Event> sdlEvent) {
-    return true;
-};

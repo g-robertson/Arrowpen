@@ -17,7 +17,7 @@ FullWindow* Init::Init() {
     auto fullWindow = new FullWindow(
         SDL_CreateWindow("Arrowpen", 200, 200, 1000, 500, SDL_WINDOW_RESIZABLE),
         screen,
-        Static::Events::GenericEventHandler()
+        Static::Events::GenericEventHandler
     );
     SDL_Event initEvent;
     initEvent.type = Static::Events::INIT_EVENT;

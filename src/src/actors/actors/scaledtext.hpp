@@ -10,5 +10,5 @@ class ScaledTextActor : public Actor {
     public:
         ScaledTextActor(int x, int y, int w, int h, std::string text, const Color& textColor = Colors::BLACK, const Color& backgroundColor = Colors::TRANSPARENT);
         void Draw(SDL_Renderer* renderer);
-        bool Handle(FullWindow* fullWindow, std::weak_ptr<SDL_Event> sdlEvent);
+        NoHandle();
 };

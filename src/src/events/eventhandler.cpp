@@ -1,13 +1,19 @@
 #include <iostream>
 #include "eventhandler.hpp"
 
+EventHandler::EventHandler(event_callback_map_t sdlEventCallbacks, event_callback_t complexCallback) {
+    this->sdlEventCallbacks = sdlEventCallbacks;
+    this->complexCallback = complexCallback;
+}
+
 bool EventHandler::Handle(FullWindow* fullWindow, std::shared_ptr<SDL_Event> sdlEvent) {
-    #define SEventCallback(event) else if (sdlEvent->type == event && !this->event ## _FUNC(fullWindow, sdlEvent)) return false
-    if (!this->ComplexCallback(fullWindow, sdlEvent)) {
+    if (!this->complexCallback(fullWindow, sdlEvent)) {
         return false;
     }
-    SEventCallback(SDL_QUIT);
+    auto pair = sdlEventCallbacks.find(sdlEvent->type);
+    if (pair != sdlEventCallbacks.end() && !pair->second(fullWindow, sdlEvent)) {
+        return false;
+    }
 
-    #undef SEventCallback
     return true;
 }

@@ -17,7 +17,7 @@ void ActorsActor::Draw(SDL_Renderer* renderer) {
     }
 }
 
-bool ActorsActor::Handle(FullWindow* fullWindow, std::weak_ptr<SDL_Event> sdlEvent) {
+bool ActorsActor::Handle(FullWindow* fullWindow, std::shared_ptr<SDL_Event> sdlEvent) {
     for (size_t i = 0; i < this->actors.size(); ++i) {
         if (!this->actors[i]->Handle(fullWindow, sdlEvent)) {
             return false;

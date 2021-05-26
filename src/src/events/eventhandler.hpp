@@ -1,6 +1,9 @@
 #pragma once
 
+#include <map>
 #include <memory>
+
+#include "helpers.hpp"
 
 #include "SDL2/SDL.h"
 
@@ -8,10 +11,17 @@ class FullWindow;
 
 class EventHandler {
     public:
+        EventHandler(
+            event_callback_map_t sdlEventCallbacks = event_callback_map_t(),
+            event_callback_t complexCallback = &noFunction
+        );
+
+        event_callback_t complexCallback;
+        event_callback_map_t sdlEventCallbacks;
+
         bool Handle(FullWindow* fullWindow, std::shared_ptr<SDL_Event> sdlEvent);
-        bool (*ComplexCallback)(FullWindow* fullWindow, std::shared_ptr<SDL_Event> sdlEvent) = &nonFunction;
-        bool (*SDL_QUIT_FUNC)(FullWindow* fullWindow, std::shared_ptr<SDL_Event> sdlEvent) = &nonFunction;
     private:
-        static bool nonFunction(FullWindow* fullWindow, std::shared_ptr<SDL_Event> sdlEvent) {return true;}
-        // TODO: The rest of the events
+        static bool noFunction(FullWindow* fullWindow, std::shared_ptr<SDL_Event> sdlEvent) {
+            return true;
+        }
 };
