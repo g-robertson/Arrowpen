@@ -7,6 +7,7 @@ target_include_directories(Arrowpen
     PRIVATE sdlhelp
     PRIVATE sm
     PRIVATE window
+    PRIVATE actors
     PRIVATE graphics
     PRIVATE events
     PRIVATE static-content
@@ -15,6 +16,7 @@ target_include_directories(Arrowpen
 add_subdirectory(sdlhelp)
 add_subdirectory(sm)
 add_subdirectory(window)
+add_subdirectory(actors)
 add_subdirectory(graphics)
 add_subdirectory(events)
 add_subdirectory(static-content)
