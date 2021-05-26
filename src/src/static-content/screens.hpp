@@ -20,7 +20,7 @@ namespace Static {
         struct Screen {
             Screens::ScreenNames screenName;
             std::shared_ptr<Color> backgroundColor;
-            std::shared_ptr<ActorsActor> actors;
+            std::shared_ptr<ImmutableActorsActor> actors;
             std::shared_ptr<EventHandler> eventHandler;
         };
 
@@ -29,7 +29,7 @@ namespace Static {
             std::shared_ptr<Screens::Screen>(new Screens::Screen({
                 Screens::NULL_SCREEN,
                 SharedNewPtr(Color, Colors::ERROR),
-                std::shared_ptr<ActorsActor>(new ActorsActor(std::initializer_list<Actor*> {
+                std::shared_ptr<ImmutableActorsActor>(new ImmutableActorsActor(std::initializer_list<Actor*> {
                     new RectangleActor(Colors::BLACK, 0, 0, 100, 2000),
                     // primary and secondary colors and white and black
                     new RectangleActor(Colors::BLACK, 0, 0, 100, 2000),

@@ -8,7 +8,7 @@
 
 
 class EventHandler;
-class ActorsActor;
+class ImmutableActorsActor;
 
 class FullWindow {
     public:
@@ -22,6 +22,6 @@ class FullWindow {
         UPtrSDL_Window window;
         UPtrSDL_Renderer renderer;
         std::shared_ptr<Static::Screens::Screen> screen;
-        std::shared_ptr<ActorsActor> dynamicActors;
+        std::shared_ptr<ImmutableActorsActor> dynamicActors;
         std::shared_ptr<EventHandler> globalEventHandler;
 };

@@ -1,25 +1,24 @@
 #include "actors.hpp"
 
-ActorsActor::ActorsActor() {
+ImmutableActorsActor::ImmutableActorsActor() {
 
 }
 
-ActorsActor::ActorsActor(std::initializer_list<Actor*> actors) {
-    this->actors.reserve(actors.size());
+ImmutableActorsActor::ImmutableActorsActor(std::initializer_list<Actor*> actors) {
     for (size_t i = 0; i < actors.size(); ++i) {
-        this->actors.push_back(std::shared_ptr<Actor>(actors.begin()[i]));
+        this->actors.emplace_front(std::shared_ptr<Actor>(actors.begin()[i]));
     }
 }
 
-void ActorsActor::Draw(SDL_Renderer* renderer) {
-    for (size_t i = 0; i < this->actors.size(); ++i) {
-        this->actors[i]->Draw(renderer);
+void ImmutableActorsActor::Draw(SDL_Renderer* renderer) {
+    for (auto actor = this->actors.begin(); actor != this->actors.end(); ++actor) {
+        (*actor)->Draw(renderer);
     }
 }
 
-bool ActorsActor::Handle(FullWindow* fullWindow, std::shared_ptr<SDL_Event> sdlEvent) {
-    for (size_t i = 0; i < this->actors.size(); ++i) {
-        if (!this->actors[i]->Handle(fullWindow, sdlEvent)) {
+bool ImmutableActorsActor::Handle(FullWindow* fullWindow, std::shared_ptr<SDL_Event> sdlEvent) {
+    for (auto actor = this->actors.begin(); actor != this->actors.end(); ++actor) {
+        if (!(*actor)->Handle(fullWindow, sdlEvent)) {
             return false;
         }
     }
