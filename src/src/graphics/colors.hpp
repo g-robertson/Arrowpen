@@ -1,25 +1,18 @@
 #pragma once
 #include <memory>
 #include <cstdint>
+#include "SDL2/SDL.h"
 
-#define __ExpandColorSymbol(color, symbol) color  symbol  red, color  symbol  green, color  symbol  blue, color symbol alpha
+#define __ExpandColorSymbol(color, symbol) color symbol r, color symbol g, color symbol b, color symbol a
 #define ExpandColor(color) __ExpandColorSymbol(color, ->)
 #define ExpandColorDot(color) __ExpandColorSymbol(color, .)
 
-
-class Color {
-    public:
-        Color(uint8_t red, uint8_t green, uint8_t blue, uint8_t alpha = 255);
-
-        uint8_t red;
-        uint8_t green;
-        uint8_t blue;
-        uint8_t alpha;
-};
+#define ColorA(red, green, blue, alpha) SDL_Color {red, green, blue, alpha}
+#define Color(red, green, blue) SDL_Color {red, green, blue}
 
 namespace Colors {
-    #define NColorA(name, r, g, b, a) const Color name = Color(r, g, b, a)
-    #define NColor(name, r, g, b) const Color name = Color(r, g, b)
+    #define NColorA(name, r, g, b, a) const SDL_Color name = ColorA(r, g, b, a)
+    #define NColor(name, r, g, b) const SDL_Color name = Color(r, g, b)
     #define GRAY(hex) NColor(GRAY ## hex, 0x ## hex, 0x ## hex, 0x ## hex)
     GRAY(CF);
     GRAY(AF);
@@ -65,6 +58,9 @@ namespace Colors {
 
 
     // Common Use
-    const Color ERROR = PURPLE;
-    const Color DARK_BACKGROUND = GRAY1F;
+    const SDL_Color ERROR = PURPLE;
+    const SDL_Color DARK_BACKGROUND = GRAY1F;
+
+    #undef NColor
+    #undef NColorA
 }

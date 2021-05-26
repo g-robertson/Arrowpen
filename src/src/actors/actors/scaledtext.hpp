@@ -6,19 +6,19 @@
 
 #include "fonts.hpp"
 #include "actor.hpp"
-#include "color.hpp"
+#include "colors.hpp"
 
 class ScaledTextActor : public Actor {
     public:
         ScaledTextActor(
             int x, int y, int w, int h,
-            const char* text, const Color& textColor = Colors::BLACK, TTF_Font* font = Fonts::Sans.get()
+            const char* text, const SDL_Color& textColor = Colors::BLACK, TTF_Font* font = Fonts::Sans.get()
         );
         void Draw(SDL_Renderer* renderer);
         NoHandle();
         
     private:
-        TTF_Font* font;
+        SDL_Surface* surface;
         bool assignedTexture = false;
         UPtrSDL_Texture texture;
         std::shared_ptr<SDL_Rect> rect;

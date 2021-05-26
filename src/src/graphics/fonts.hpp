@@ -4,7 +4,6 @@
 #include "sdlhelp.hpp"
 #include "SDL2/SDL_ttf.h"
 
-#include "Fonts/FiraSans-Regular.ttf.hpp"
 #include "Fonts/PTSans-Regular.ttf.hpp"
 
 namespace {
