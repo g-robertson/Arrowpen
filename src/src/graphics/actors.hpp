@@ -5,11 +5,11 @@
 
 #include "actor.hpp"
 
-class Graphics {
+class ActorsActor : public Actor {
     public:
-        Graphics();
-        Graphics(std::vector<std::shared_ptr<Actor>> actors);
+        ActorsActor();
+        ActorsActor(std::initializer_list<Actor*> actors);
         void Draw(SDL_Renderer* renderer);
-
+        bool Handle(FullWindow* fullWindow, std::weak_ptr<SDL_Event> sdlEvent);
         std::vector<std::shared_ptr<Actor>> actors;
 };

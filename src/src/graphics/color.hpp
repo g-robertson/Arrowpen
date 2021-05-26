@@ -28,7 +28,9 @@ namespace Colors {
     GRAY(1F);
     #undef GRAY
 
-    const Color WHITE = Color(255, 255, 255);
+    // I cannot divine why, but pure white copies to clipboard as transparent, so until I figure out a correct fix
+    // white will be #FEFEFE
+    const Color WHITE = Color(254, 254, 254);
     
     const Color RED = Color(255, 0, 0);
     const Color GREEN = Color(0, 255, 0);

@@ -1,8 +1,6 @@
 #pragma once
 
 #include <memory>
-
-
 #include "screens.hpp"
 
 #include "sdlhelp.hpp"
@@ -10,7 +8,7 @@
 
 
 class EventHandler;
-class Graphics;
+class ActorsActor;
 
 class FullWindow {
     public:
@@ -24,7 +22,7 @@ class FullWindow {
         UPtrSDL_Window window;
         UPtrSDL_Renderer renderer;
         Static::Screens::ScreenNames screen;
-        std::shared_ptr<Graphics> graphics;
+        std::shared_ptr<ActorsActor> actors;
         std::shared_ptr<EventHandler> screenEventHandler;
         std::shared_ptr<EventHandler> genericEventHandler;
 };

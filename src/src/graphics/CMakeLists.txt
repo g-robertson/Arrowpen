@@ -1,6 +1,6 @@
 target_sources(Arrowpen
     PRIVATE color.cpp
-    PRIVATE graphics.cpp
+    PRIVATE actors.cpp
 )
 
 target_include_directories(Arrowpen

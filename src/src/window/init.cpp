@@ -1,11 +1,9 @@
-
 #include <memory>
 
 #include "init.hpp"
 #include "screens.hpp"
 #include "fullwindow.hpp"
 #include "events.hpp"
-#include "graphics.hpp"
 
 #include "sdlhelp.hpp"
 #include "SDL2/SDL.h"

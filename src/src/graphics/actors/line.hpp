@@ -5,4 +5,5 @@ class LineActor : public Actor {
     public:
         LineActor();
         void Draw(SDL_Renderer* renderer);
+        bool Handle(FullWindow* fullWindow, std::weak_ptr<SDL_Event> sdlEvent);
 };

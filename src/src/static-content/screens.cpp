@@ -1,5 +1,4 @@
 #include "logging.hpp"
-#include "graphics.hpp"
 #include "screens.hpp"
 
 std::shared_ptr<Static::Screens::ScreenSelection> Static::Screens::SelectScreen(Static::Screens::ScreenNames name) {

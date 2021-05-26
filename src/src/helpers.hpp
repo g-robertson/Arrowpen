@@ -2,6 +2,8 @@
 
 #include <string>
 
+#define SharedNewPtr(type, ...) std::shared_ptr<type>(new type(__VA_ARGS__))
+
 namespace Util {
     namespace Char {
         bool isWhitespace(char c);
