@@ -5,8 +5,8 @@ ImmutableActorsActor::ImmutableActorsActor() {
 }
 
 ImmutableActorsActor::ImmutableActorsActor(std::initializer_list<Actor*> actors) {
-    for (size_t i = 0; i < actors.size(); ++i) {
-        this->actors.emplace_front(std::shared_ptr<Actor>(actors.begin()[i]));
+    for (auto actor = std::rbegin(actors); actor != std::rend(actors); ++actor) {
+        this->actors.emplace_front(std::shared_ptr<Actor>(*actor));
     }
 }
 
