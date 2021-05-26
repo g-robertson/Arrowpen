@@ -4,7 +4,8 @@
 #include "sdlhelp.hpp"
 #include "SDL2/SDL_ttf.h"
 
-#include "Fonts/OpenSans-Regular.ttf.hpp"
+#include "Fonts/FiraSans-Regular.ttf.hpp"
+#include "Fonts/PTSans-Regular.ttf.hpp"
 
 namespace {
     TTF_Font* TTF_InitAndOpenFont(const char* file, int ptsize) {
@@ -22,5 +23,5 @@ namespace {
 }
 
 namespace Fonts {
-    static auto Sans = UPtrTTF_Font(TTF_InitAndOpenFontRW(OpenSansBytes, sizeof(OpenSansBytes), 144));
+    static auto Sans = UPtrTTF_Font(TTF_InitAndOpenFontRW(PTSansBytes, sizeof(PTSansBytes), 144));
 }
