@@ -11,23 +11,26 @@ FullWindow::FullWindow(
 ) {
     this->window = UPtrSDL_Window(window);
     this->renderer = UPtrSDL_Renderer(SDL_CreateRenderer(this->window.get(), -1, SDL_RENDERER_ACCELERATED));
-    this->screen = screen;
-    auto ss = Static::Screens::SelectScreen(screen);
-    this->actors = ss->actors;
-    this->screenEventHandler = ss->eventHandler;
-    this->genericEventHandler = eventHandler;
+    this->screen = Static::Screens::SelectScreen(screen);
+    this->dynamicActors = SharedNewPtr(ActorsActor);
+    this->globalEventHandler = eventHandler;
 }
 
 void FullWindow::Listen(bool allowSlow) {
     auto sdlEvent = std::shared_ptr<SDL_Event>(new SDL_Event);
-
     while (SDL_WaitEvent(sdlEvent.get())) {
-        this->actors->Draw(this->renderer.get());
+        SDL_SetRenderDrawColor(this->renderer.get(), ExpandColor(this->screen->backgroundColor));
+        SDL_RenderClear(this->renderer.get());
         if (
-            !this->genericEventHandler->Handle(this, sdlEvent) ||
-            !this->screenEventHandler->Handle(this, sdlEvent) ||
-            !this->actors->Handle(this, sdlEvent)) {
+            !this->globalEventHandler->Handle(this, sdlEvent) ||
+            !this->screen->eventHandler->Handle(this, sdlEvent) ||
+            !this->screen->actors->Handle(this, sdlEvent) ||
+            !this->dynamicActors->Handle(this, sdlEvent)
+        ) {
             return;
         }
+        this->screen->actors->Draw(this->renderer.get());
+        this->dynamicActors->Draw(this->renderer.get());
+        SDL_RenderPresent(this->renderer.get());
     }
 }

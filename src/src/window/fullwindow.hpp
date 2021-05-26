@@ -21,8 +21,7 @@ class FullWindow {
 
         UPtrSDL_Window window;
         UPtrSDL_Renderer renderer;
-        Static::Screens::ScreenNames screen;
-        std::shared_ptr<ActorsActor> actors;
-        std::shared_ptr<EventHandler> screenEventHandler;
-        std::shared_ptr<EventHandler> genericEventHandler;
+        std::shared_ptr<Static::Screens::Screen> screen;
+        std::shared_ptr<ActorsActor> dynamicActors;
+        std::shared_ptr<EventHandler> globalEventHandler;
 };

@@ -1,7 +1,7 @@
 #include "logging.hpp"
 #include "screens.hpp"
 
-std::shared_ptr<Static::Screens::ScreenSelection> Static::Screens::SelectScreen(Static::Screens::ScreenNames name) {
+std::shared_ptr<Static::Screens::Screen> Static::Screens::SelectScreen(Static::Screens::ScreenNames name) {
     for (size_t i = 0; i < Screens::SCREEN_SELECTIONS.size(); ++i) {
         if (Static::Screens::SCREEN_SELECTIONS[i]->screenName == name) {
             return Static::Screens::SCREEN_SELECTIONS[i];

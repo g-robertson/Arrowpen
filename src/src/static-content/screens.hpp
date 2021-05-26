@@ -17,16 +17,18 @@ namespace Static {
             NULL_SCREEN
         };
 
-        struct ScreenSelection {
+        struct Screen {
             Screens::ScreenNames screenName;
+            std::shared_ptr<Color> backgroundColor;
             std::shared_ptr<ActorsActor> actors;
             std::shared_ptr<EventHandler> eventHandler;
         };
 
 
-        const std::vector<std::shared_ptr<Screens::ScreenSelection>> SCREEN_SELECTIONS = {
-            std::shared_ptr<Screens::ScreenSelection>(new Screens::ScreenSelection({
+        const std::vector<std::shared_ptr<Screens::Screen>> SCREEN_SELECTIONS = {
+            std::shared_ptr<Screens::Screen>(new Screens::Screen({
                 Screens::NULL_SCREEN,
+                SharedNewPtr(Color, Colors::ERROR),
                 std::shared_ptr<ActorsActor>(new ActorsActor(std::initializer_list<Actor*> {
                     new RectangleActor(Colors::BLACK, 0, 0, 100, 2000),
                     // primary and secondary colors and white and black
@@ -66,6 +68,6 @@ namespace Static {
             }))
         };
 
-        std::shared_ptr<Screens::ScreenSelection> SelectScreen(Screens::ScreenNames);
+        std::shared_ptr<Screens::Screen> SelectScreen(Screens::ScreenNames);
     };
 };

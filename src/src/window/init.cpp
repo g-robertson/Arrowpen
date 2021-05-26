@@ -1,6 +1,9 @@
 #include <memory>
 
+#include "helpers.hpp"
+
 #include "init.hpp"
+#include "events.hpp"
 #include "screens.hpp"
 #include "fullwindow.hpp"
 #include "events.hpp"
@@ -16,5 +19,8 @@ FullWindow* Init::Init() {
         screen,
         Static::Events::GenericEventHandler()
     );
+    SDL_Event initEvent;
+    initEvent.type = Static::Events::INIT_EVENT;
+    SDL_PushEvent(&initEvent);
     return fullWindow;
 }

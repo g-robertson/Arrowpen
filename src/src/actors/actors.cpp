@@ -12,12 +12,9 @@ ActorsActor::ActorsActor(std::initializer_list<Actor*> actors) {
 }
 
 void ActorsActor::Draw(SDL_Renderer* renderer) {
-    SDL_SetRenderDrawColor(renderer, 255, 0, 255, 255);
-    SDL_RenderClear(renderer);
     for (size_t i = 0; i < this->actors.size(); ++i) {
         this->actors[i]->Draw(renderer);
     }
-    SDL_RenderPresent(renderer);
 }
 
 bool ActorsActor::Handle(FullWindow* fullWindow, std::weak_ptr<SDL_Event> sdlEvent) {

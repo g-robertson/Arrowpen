@@ -13,6 +13,8 @@ namespace {
 
 namespace Static {
     namespace Events {
+        auto INIT_EVENT = SDL_RegisterEvents(1);
+
         std::shared_ptr<EventHandler> GenericEventHandler() {
             static std::shared_ptr<EventHandler> __GenericEventHandler;
             if (!initialized) {
