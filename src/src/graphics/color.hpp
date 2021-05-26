@@ -2,7 +2,10 @@
 #include <memory>
 #include <cstdint>
 
-#define ExpandColor(color) color->red, color->green, color->blue, color->alpha
+#define __ExpandColorSymbol(color, symbol) color  symbol  red, color  symbol  green, color  symbol  blue, color symbol alpha
+#define ExpandColor(color) __ExpandColorSymbol(color, ->)
+#define ExpandColorDot(color) __ExpandColorSymbol(color, .)
+
 
 class Color {
     public:

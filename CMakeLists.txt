@@ -23,6 +23,11 @@ add_subdirectory(src)
 # Add external dependencies
 add_subdirectory(extern)
 
+set_target_properties(Arrowpen
+    PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/.."
+)
+
 
 # Set NDEBUGGING for not debugging, DEBUGGING (anything that isn't NDEBUGGING) for debugging
 # It is this way because it makes vscode intellisense easier to work with

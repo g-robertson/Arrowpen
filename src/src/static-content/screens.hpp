@@ -6,6 +6,8 @@
 
 #include "actors.hpp"
 #include "actor.hpp"
+
+#include "scaledtext.hpp"
 #include "rectangle.hpp"
 
 #include <memory>
@@ -62,7 +64,9 @@ namespace Static {
                     new RectangleActor(Colors::BLACK, 50 + (7 * 200), 0, 50, 200),
 
                     // pink
-                    new RectangleActor(Colors::PINK, 0, 200, 1500, 50)
+                    new RectangleActor(Colors::PINK, 0, 200, 1500, 50),
+
+                    new ScaledTextActor(200, 0, 900, 400, "graphics is my passion")
                 })),
                 std::shared_ptr<EventHandler>(new EventHandler)
             }))
