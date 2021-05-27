@@ -8,10 +8,8 @@
 
 #include "smwriter.hpp"
 
-const std::string tmpPath = ".tmpsm";
-
 bool SMWriter::Write(std::shared_ptr<SMSong> song, std::string path) {
-    std::ofstream ofs(tmpPath);
+    std::ofstream ofs(path);
     // sets all decimal places to 3, mimics arrowvortex style output
     ofs << std::setprecision(3) << std::fixed;
     #define OfsKey(keyName, info, name) ofs << "#" #keyName ":" << (song info->name) << ";" << std::endl

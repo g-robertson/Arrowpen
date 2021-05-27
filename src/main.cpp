@@ -12,11 +12,12 @@
 
 const std::string test = "/home/gr/Desktop/Arrowpen/Songs/Gochamaze Greatest Gigapack 2/(STEPDWI)INSIDE IDENTITY/edit.sm";
 int main(int argc, char** argv) {
+    /*
     auto reader = std::shared_ptr<SMReader>(new SMReader());
     auto song = reader->Read(test);
     auto writer = std::shared_ptr<SMWriter>(new SMWriter());
     writer->Write(song, "asdf.sm");
-
+    */
     SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
     // having fullWindow as shared ptr causes segfault for some ungodly reason I cannot figure out
     // guess: probably something to do with sdl_window trying to destroy itself, but fullWindow not existing anymore
