@@ -4,5 +4,7 @@ target_sources(Arrowpen
 
 target_include_directories(Arrowpen
     PRIVATE actors
+    PRIVATE hkactors
 )
 add_subdirectory(actors)
+add_subdirectory(hkactors)

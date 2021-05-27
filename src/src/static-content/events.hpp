@@ -12,9 +12,9 @@ namespace {
 
 namespace Static {
     namespace Events {
-        auto INIT_EVENT = SDL_RegisterEvents(1);
+        static auto INIT_EVENT = SDL_RegisterEvents(1);
 
-        auto GenericEventHandler = SharedNewPtr(EventHandler, event_callback_map_t {
+        static auto GenericEventHandler = SharedNewPtr(EventHandler, event_callback_map_t {
             {SDL_QUIT, QUIT_FUNC}
         });
     };

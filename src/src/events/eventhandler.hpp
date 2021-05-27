@@ -13,15 +13,11 @@ class EventHandler {
     public:
         EventHandler(
             event_callback_map_t sdlEventCallbacks = event_callback_map_t(),
-            event_callback_t complexCallback = &noFunction
+            event_callback_t complexCallback = &noEventCallback
         );
 
         event_callback_t complexCallback;
         event_callback_map_t sdlEventCallbacks;
 
         bool Handle(FullWindow* fullWindow, std::shared_ptr<SDL_Event> sdlEvent);
-    private:
-        static bool noFunction(FullWindow* fullWindow, std::shared_ptr<SDL_Event> sdlEvent) {
-            return true;
-        }
 };

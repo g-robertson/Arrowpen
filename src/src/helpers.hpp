@@ -29,7 +29,11 @@ class FullWindow;
 
 typedef bool (*event_callback_t)(FullWindow*, std::shared_ptr<SDL_Event>);
 typedef std::map<Uint32, event_callback_t> event_callback_map_t;
+inline bool noEventCallback(FullWindow* fullWindow, std::shared_ptr<SDL_Event> sdlEvent) {
+    return true;
+}
 
 // actor.hpp help
 #define NoDraw() void Draw(SDL_Renderer* renderer) {}
 #define NoHandle() bool Handle(FullWindow* fullWindow, std::shared_ptr<SDL_Event> sdlEvent) {return true;}
+bool InBounds(int x, int y, const SDL_Rect& rect);

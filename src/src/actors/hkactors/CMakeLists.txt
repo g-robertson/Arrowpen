@@ -1,3 +1,3 @@
 target_sources(Arrowpen
-    PRIVATE colors.cpp
+    PRIVATE button.cpp
 )
