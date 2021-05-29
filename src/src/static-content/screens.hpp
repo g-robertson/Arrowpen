@@ -33,7 +33,6 @@ namespace Static {
                 Screens::NULL_SCREEN,
                 SharedNewPtr(SDL_Color, Colors::ERROR),
                 std::shared_ptr<ImmutableActorsActor>(new ImmutableActorsActor(std::initializer_list<Actor*> {
-                    new RectangleActor(Colors::BLACK, 0, 0, 100, 2000),
                     // primary and secondary colors and white and black
                     new RectangleActor(Colors::BLACK, 0, 0, 100, 2000),
                     new RectangleActor(Colors::RED, 1*100, 0, 100, 2000),
