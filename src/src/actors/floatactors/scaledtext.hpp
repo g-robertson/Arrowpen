@@ -5,13 +5,13 @@
 #include "SDL2/SDL.h"
 
 #include "fonts.hpp"
-#include "actor.hpp"
+#include "floatactor.hpp"
 #include "colors.hpp"
 
-class ScaledTextActor : public Actor {
+class ScaledTextActor : public FloatActor {
     public:
         ScaledTextActor(
-            int x, int y, int w, int h,
+            float x, float y, float w, float h,
             const char* text, const SDL_Color& textColor = Colors::BLACK, TTF_Font* font = Fonts::Sans.get()
         );
         void Draw(SDL_Renderer* renderer);
@@ -21,5 +21,4 @@ class ScaledTextActor : public Actor {
         SDL_Surface* surface;
         bool assignedTexture = false;
         UPtrSDL_Texture texture;
-        std::shared_ptr<SDL_Rect> rect;
 };

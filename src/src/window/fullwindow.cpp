@@ -12,12 +12,18 @@ FullWindow::FullWindow(
     this->window = UPtrSDL_Window(window);
     this->renderer = UPtrSDL_Renderer(SDL_CreateRenderer(this->window.get(), -1, SDL_RENDERER_ACCELERATED));
     this->screen = Static::Screens::SelectScreen(screen);
-    this->dynamicActors = SharedNewPtr(ImmutableActorsActor);
+    this->dynamicActors = SharedNewPtr(TopActors);
     this->globalEventHandler = eventHandler;
 }
 
 void FullWindow::Listen(bool allowSlow) {
     auto sdlEvent = std::shared_ptr<SDL_Event>(new SDL_Event);
+
+    int windoww;
+    int windowh;
+    SDL_GetWindowSize(this->window.get(), &windoww, &windowh);
+    
+    this->screen->actors->ChangeParentDimensions(windoww, windowh);
     while (SDL_WaitEvent(sdlEvent.get())) {
         SDL_SetRenderDrawColor(this->renderer.get(), ExpandColor(this->screen->backgroundColor));
         SDL_RenderClear(this->renderer.get());

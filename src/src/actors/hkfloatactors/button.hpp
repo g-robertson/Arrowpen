@@ -1,15 +1,16 @@
 #pragma once
 #include <memory>
 
+#include "floatactor.hpp"
 #include "events.hpp"
 #include "colors.hpp"
-#include "rectangle.hpp"
-#include "scaledtext.hpp"
+#include "intrectangle.hpp"
+#include "intscaledtext.hpp"
 
-class ButtonActor : public Actor {
+class ButtonActor : public FloatActor {
     public:
         ButtonActor(
-            int x, int y, int w, int h, const char* text,
+            float x, float y, float w, float h, const char* text,
             unsigned int padding = 3,
             unsigned int textPadding = 10,
             const SDL_Color& textColor = Colors::DARKTHEME_TEXT, 
@@ -18,7 +19,7 @@ class ButtonActor : public Actor {
             TTF_Font* font = Fonts::Sans.get()
         );
         ButtonActor(
-            int x, int y, int w, int h, const char* text,
+            float x, float y, float w, float h, const char* text,
             event_callback_t onClickCallback,
             unsigned int padding = 3,
             unsigned int textPadding = 10,
@@ -32,8 +33,12 @@ class ButtonActor : public Actor {
         
         event_callback_t onClick = &noEventCallback;
 
+        void ChangeParentDimensions(int rw, int rh);
+    private:
+        unsigned int padding;
+        unsigned int textPadding;
         bool pressed = false;
-        std::shared_ptr<RectangleActor> outerRectangleActor;
-        std::shared_ptr<RectangleActor> innerRectangleActor;
-        std::shared_ptr<ScaledTextActor> scaledTextActor;
+        std::shared_ptr<IntRectangleActor> outerRectangleActor;
+        std::shared_ptr<IntRectangleActor> innerRectangleActor;
+        std::shared_ptr<IntScaledTextActor> scaledTextActor;
 };

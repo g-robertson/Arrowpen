@@ -1,10 +1,13 @@
 target_sources(Arrowpen
-    PRIVATE actors.cpp
+    PRIVATE floatactor.cpp
+    PRIVATE topactors.cpp
 )
 
 target_include_directories(Arrowpen
-    PRIVATE actors
-    PRIVATE hkactors
+    PRIVATE floatactors
+    PRIVATE intactors
+    PRIVATE hkfloatactors
 )
-add_subdirectory(actors)
-add_subdirectory(hkactors)
+add_subdirectory(floatactors)
+add_subdirectory(intactors)
+add_subdirectory(hkfloatactors)
