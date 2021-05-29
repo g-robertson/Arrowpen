@@ -57,7 +57,7 @@ namespace Colors {
     NColor(CORNFLOWER_BLUE, 127, 127, 255);
 
     NColor(LIGHT_YELLOW, 255, 255, 127);
-    NColor(LIGHT_PURPLE, 255, 0, 255);
+    NColor(LIGHT_PURPLE, 255, 127, 255);
     NColor(LIGHT_CYAN, 127, 255, 255);
 
 
