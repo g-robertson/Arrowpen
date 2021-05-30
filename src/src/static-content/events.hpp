@@ -4,18 +4,18 @@
 #include "eventhandler.hpp"
 #include "SDL2/SDL.h"
 
-class FullWindow;
 
-namespace {
-    bool QUIT_FUNC(FullWindow* fullWindow, std::shared_ptr<SDL_Event> sdlEvent) {return false;}
-}
+bool GENERIC_QUIT_FUNC(FullWindow* fullWindow, std::shared_ptr<SDL_Event> sdlEvent); 
+bool GENERIC_WINDOWEVENT_FUNC(FullWindow* fullWindow, std::shared_ptr<SDL_Event> sdlEvent);
+
 
 namespace Static {
     namespace Events {
         static auto INIT_EVENT = SDL_RegisterEvents(1);
 
         static auto GenericEventHandler = SharedNewPtr(EventHandler, event_callback_map_t {
-            {SDL_QUIT, QUIT_FUNC}
+            {SDL_QUIT, &GENERIC_QUIT_FUNC},
+            {SDL_WINDOWEVENT, &GENERIC_WINDOWEVENT_FUNC}
         });
     };
 };
