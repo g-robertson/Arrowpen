@@ -17,7 +17,8 @@
 namespace Static {
     namespace Screens {
         enum ScreenNames {
-            NULL_SCREEN
+            NULL_SCREEN,
+            TEST_SCREEN
         };
 
         struct Screen {
@@ -31,6 +32,12 @@ namespace Static {
         const std::vector<std::shared_ptr<Screens::Screen>> SCREEN_SELECTIONS = {
             std::shared_ptr<Screens::Screen>(new Screens::Screen({
                 Screens::NULL_SCREEN,
+                SharedNewPtr(SDL_Color, Colors::ERROR),
+                SharedNewPtr(TopActors),
+                SharedNewPtr(EventHandler)
+            })),
+            std::shared_ptr<Screens::Screen>(new Screens::Screen({
+                Screens::TEST_SCREEN,
                 SharedNewPtr(SDL_Color, Colors::ERROR),
                 std::shared_ptr<TopActors>(new TopActors(std::initializer_list<FloatActor*> {
                     // primary and secondary colors and white and black
