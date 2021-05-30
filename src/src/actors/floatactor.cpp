@@ -21,18 +21,18 @@ const SDL_Rect* FloatActor::rectg() {
     return this->rect.get();
 }
 
-const float FloatActor::xg() {
+float FloatActor::xg() {
     return this->x;
 }
 
-const float FloatActor::yg() {
+float FloatActor::yg() {
     return this->y;
 }
 
-const float FloatActor::wg() {
+float FloatActor::wg() {
     return this->w;
 }
 
-const float FloatActor::hg() {
+float FloatActor::hg() {
     return this->h;
 }

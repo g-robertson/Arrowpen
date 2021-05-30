@@ -15,8 +15,8 @@ namespace Colors {
     std::shared_ptr<SDL_Color> Contrast(const SDL_Color& color, float contrast);
     unsigned short Total(const SDL_Color& color);
 
-    #define NColorA(name, r, g, b, a) const SDL_Color name = ColorA(r, g, b, a)
-    #define NColor(name, r, g, b) const SDL_Color name = Color(r, g, b)
+    #define NColorA(name, r, g, b, a) constexpr SDL_Color name = ColorA(r, g, b, a)
+    #define NColor(name, r, g, b) constexpr SDL_Color name = Color(r, g, b)
     #define GRAY(hex) NColor(GRAY ## hex, 0x ## hex, 0x ## hex, 0x ## hex)
     GRAY(CF);
     GRAY(AF);
@@ -62,9 +62,9 @@ namespace Colors {
 
 
     // Common Use
-    const SDL_Color ERROR = PURPLE;
-    const SDL_Color DARKTHEME_TEXT = GRAYAF;
-    const SDL_Color DARKTHEME_BACKGROUND = GRAY1F;
+    constexpr SDL_Color ERROR = PURPLE;
+    constexpr SDL_Color DARKTHEME_TEXT = GRAYAF;
+    constexpr SDL_Color DARKTHEME_BACKGROUND = GRAY1F;
 
     #undef NColor
     #undef NColorA

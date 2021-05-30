@@ -8,10 +8,10 @@ class FloatActor : public Actor {
         virtual void ChangeParentDimensions(int rw, int rh);
 
         const SDL_Rect* rectg();
-        const float xg();
-        const float yg();
-        const float wg();
-        const float hg();
+        float xg();
+        float yg();
+        float wg();
+        float hg();
         
     protected:
         float x;

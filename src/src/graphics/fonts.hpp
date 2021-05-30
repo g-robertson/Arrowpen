@@ -22,5 +22,5 @@ namespace {
 }
 
 namespace Fonts {
-    static auto Sans = UPtrTTF_Font(TTF_InitAndOpenFontRW(PTSansBytes, sizeof(PTSansBytes), 144));
+    const auto Sans = UPtrTTF_Font(TTF_InitAndOpenFontRW(PTSansBytes, sizeof(PTSansBytes), 144));
 }

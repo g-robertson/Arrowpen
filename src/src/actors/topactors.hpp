@@ -15,6 +15,6 @@ class TopActors {
 
         void ChangeParentDimensions(int rw, int rh);
     private:
-
+        std::map<SDL_EventType, bool> eventsRegistered;
         std::forward_list<std::shared_ptr<FloatActor>> actors;
 };

@@ -1,17 +1,17 @@
+#include "helpers.hpp"
 #include "topactors.hpp"
 
 TopActors::TopActors() {
-
 }
 
-TopActors::TopActors(std::initializer_list<FloatActor*> actors, int rw, int rh) {
+TopActors::TopActors(std::initializer_list<FloatActor*> actors, int rw, int rh) : TopActors() {
     for (auto actor = std::rbegin(actors); actor != std::rend(actors); ++actor) {
         this->actors.emplace_front(std::shared_ptr<FloatActor>(*actor));
         (*actor)->ChangeParentDimensions(rw, rh);
     }
 }
 
-TopActors::TopActors(std::initializer_list<FloatActor*> actors) {
+TopActors::TopActors(std::initializer_list<FloatActor*> actors) : TopActors() {
     for (auto actor = std::rbegin(actors); actor != std::rend(actors); ++actor) {
         this->actors.emplace_front(std::shared_ptr<FloatActor>(*actor));
     }

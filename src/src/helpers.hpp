@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <vector>
 #include <map>
 #include <memory>
 #include "SDL2/SDL.h"
@@ -13,8 +14,8 @@ namespace Util {
     }
 
     namespace Date {
-        const char DEFAULT_ISOISH_STRING[] = "0000-00-00T00-00-00";
-        const size_t ISOISH_TIME_SIZE = sizeof(DEFAULT_ISOISH_STRING);
+        constexpr char DEFAULT_ISOISH_STRING[] = "0000-00-00T00-00-00";
+        constexpr size_t ISOISH_TIME_SIZE = sizeof(DEFAULT_ISOISH_STRING);
         std::string getISOISHString(time_t t = time(0));
     }
 
