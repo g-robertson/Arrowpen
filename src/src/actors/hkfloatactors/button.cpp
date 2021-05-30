@@ -3,13 +3,8 @@
 #include "fullwindow.hpp"
 
 ButtonActor::ButtonActor(
-    float x, float y, float w, float h, const char* text,
-    event_callback_t onClickCallback,
-    unsigned int padding,
-    unsigned int textPadding,
-    const SDL_Color& textColor, 
-    const SDL_Color& backgroundColor,
-    float outerContrast,
+    float x, float y, float w, float h, const char* text, float padding, float textPadding,
+    const SDL_Color& textColor, const SDL_Color& backgroundColor, float outerContrast,
     TTF_Font* font
 ) : FloatActor(x, y, w, h) {
     this->outerRectangleActor = SharedNewPtr(IntRectangleActor, *Colors::Contrast(backgroundColor, outerContrast).get(), this->rect);
@@ -18,21 +13,19 @@ ButtonActor::ButtonActor(
 
     this->padding = padding;
     this->textPadding = textPadding;
-
-    this->onClick = onClickCallback;
 }
 
 ButtonActor::ButtonActor(
-    float x, float y, float w, float h, const char* text, unsigned int padding, unsigned int textPadding,
-    const SDL_Color& textColor, const SDL_Color& backgroundColor, float outerContrast,
+    float x, float y, float w, float h, const char* text,
+    event_callback_t onClickCallback,
+    float padding,
+    float textPadding,
+    const SDL_Color& textColor, 
+    const SDL_Color& backgroundColor,
+    float outerContrast,
     TTF_Font* font
-) : FloatActor(x, y, w, h) {
-    this->outerRectangleActor = SharedNewPtr(IntRectangleActor,*Colors::Contrast(backgroundColor, outerContrast).get(), this->rect);
-    this->innerRectangleActor = SharedNewPtr(IntRectangleActor, backgroundColor);
-    this->scaledTextActor = SharedNewPtr(IntScaledTextActor, text, textColor, font);
-
-    this->padding = padding;
-    this->textPadding = textPadding;
+) : ButtonActor(x, y, w, h, text, padding, textPadding, textColor, backgroundColor, outerContrast, font) {
+    this->onClick = onClickCallback;
 }
 
 void ButtonActor::Draw(SDL_Renderer* renderer) {
@@ -81,13 +74,17 @@ void ButtonActor::ChangeParentDimensions(int rw, int rh) {
     this->rect->w = std::ceil(this->w * rw);
     this->rect->h = std::ceil(this->h * rh);
 
-    this->innerRectangleActor->rect->x = this->rect->x + this->padding;
-    this->innerRectangleActor->rect->y = this->rect->y + this->padding;
-    this->innerRectangleActor->rect->w = this->rect->w - (2 * this->padding);
-    this->innerRectangleActor->rect->h = this->rect->h - (2 * this->padding);
+    auto mwh = std::min(this->rect->w, this->rect->h);
+    auto mwhPadding = mwh * this->padding;
+    auto mwhTextPadding = mwh * this->textPadding;
 
-    this->scaledTextActor->rect->x = this->rect->x + this->textPadding;
-    this->scaledTextActor->rect->y = this->rect->y + this->textPadding;
-    this->scaledTextActor->rect->w = this->rect->w - (2 * this->textPadding);
-    this->scaledTextActor->rect->h = this->rect->h - (2 * this->textPadding);
+    this->innerRectangleActor->rect->x = this->rect->x + std::floor(mwhPadding);
+    this->innerRectangleActor->rect->y = this->rect->y + std::floor(mwhPadding);
+    this->innerRectangleActor->rect->w = this->rect->w - std::floor(mwhPadding * 2);
+    this->innerRectangleActor->rect->h = this->rect->h - std::floor(mwhPadding * 2);
+    
+    this->scaledTextActor->rect->x = this->rect->x + std::floor(mwhTextPadding);
+    this->scaledTextActor->rect->y = this->rect->y + std::floor(mwhTextPadding);
+    this->scaledTextActor->rect->w = this->rect->w - std::floor(mwhTextPadding * 2);
+    this->scaledTextActor->rect->h = this->rect->h - std::floor(mwhTextPadding * 2);
 }

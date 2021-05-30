@@ -11,8 +11,8 @@ class ButtonActor : public FloatActor {
     public:
         ButtonActor(
             float x, float y, float w, float h, const char* text,
-            unsigned int padding = 3,
-            unsigned int textPadding = 10,
+            float padding = 0.045,
+            float textPadding = 0.09,
             const SDL_Color& textColor = Colors::DARKTHEME_TEXT, 
             const SDL_Color& backgroundColor = Colors::DARKTHEME_BACKGROUND,
             float outerContrast = 1.3,
@@ -21,8 +21,8 @@ class ButtonActor : public FloatActor {
         ButtonActor(
             float x, float y, float w, float h, const char* text,
             event_callback_t onClickCallback,
-            unsigned int padding = 3,
-            unsigned int textPadding = 10,
+            float padding = 0.045,
+            float textPadding = 0.09,
             const SDL_Color& textColor = Colors::DARKTHEME_TEXT, 
             const SDL_Color& backgroundColor = Colors::DARKTHEME_BACKGROUND,
             float outerContrast = 1.3,
@@ -35,8 +35,8 @@ class ButtonActor : public FloatActor {
 
         void ChangeParentDimensions(int rw, int rh);
     private:
-        unsigned int padding;
-        unsigned int textPadding;
+        float padding;
+        float textPadding;
         bool pressed = false;
         std::shared_ptr<IntRectangleActor> outerRectangleActor;
         std::shared_ptr<IntRectangleActor> innerRectangleActor;
