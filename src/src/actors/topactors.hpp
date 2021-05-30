@@ -1,7 +1,8 @@
 #pragma once
 #include "SDL2/SDL.h"
 #include <memory>
-#include <forward_list>
+#include <set>
+#include <list>
 
 #include "floatactor.hpp"
 
@@ -14,7 +15,11 @@ class TopActors {
         bool Handle(FullWindow* fullWindow, std::shared_ptr<SDL_Event> sdlEvent);
 
         void ChangeParentDimensions(int rw, int rh);
+
+        void RegisterEvent(Uint32 eventType);
+        bool RegisteredEvent(Uint32 eventType);
+        void UnregisterEvents();
     private:
-        std::map<SDL_EventType, bool> eventsRegistered;
-        std::forward_list<std::shared_ptr<FloatActor>> actors;
+        std::set<Uint32> eventsRegistered;
+        std::list<std::shared_ptr<FloatActor>> actors;
 };

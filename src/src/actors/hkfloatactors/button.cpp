@@ -1,5 +1,6 @@
 #include "colors.hpp"
 #include "button.hpp"
+#include "fullwindow.hpp"
 
 ButtonActor::ButtonActor(
     float x, float y, float w, float h, const char* text,
@@ -47,10 +48,12 @@ bool ButtonActor::Handle(FullWindow* fullWindow, std::shared_ptr<SDL_Event> sdlE
             if (sdlEvent->button.button == SDL_BUTTON_LEFT) {
                 switch (sdlEvent->button.state) {
                     case SDL_PRESSED:
-                        if (!this->pressed && InBounds(sdlEvent->button.x, sdlEvent->button.y, *this->rect.get())) {
+                        if (!fullWindow->screen->actors->RegisteredEvent(sdlEvent->type)
+                            && !this->pressed && InBounds(sdlEvent->button.x, sdlEvent->button.y, *this->rect.get())) {
                             this->innerRectangleActor->color = Colors::Contrast(*this->innerRectangleActor->color.get(), 1.1);
                             this->outerRectangleActor->color = Colors::Contrast(*this->outerRectangleActor->color.get(), 1.1);
                             this->pressed = true;
+                            fullWindow->screen->actors->RegisterEvent(sdlEvent->type);
                         }
                         break;
                     case SDL_RELEASED:

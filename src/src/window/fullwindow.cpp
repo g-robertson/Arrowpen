@@ -12,7 +12,6 @@ FullWindow::FullWindow(
     this->window = UPtrSDL_Window(window);
     this->renderer = UPtrSDL_Renderer(SDL_CreateRenderer(this->window.get(), -1, SDL_RENDERER_ACCELERATED));
     this->screen = Static::Screens::SelectScreen(screen);
-    this->dynamicActors = SharedNewPtr(TopActors);
     this->globalEventHandler = eventHandler;
 }
 
@@ -30,13 +29,13 @@ void FullWindow::Listen(bool allowSlow) {
         if (
             !this->globalEventHandler->Handle(this, sdlEvent) ||
             !this->screen->eventHandler->Handle(this, sdlEvent) ||
-            !this->screen->actors->Handle(this, sdlEvent) ||
-            !this->dynamicActors->Handle(this, sdlEvent)
+            !this->screen->actors->Handle(this, sdlEvent)
         ) {
             return;
         }
         this->screen->actors->Draw(this->renderer.get());
-        this->dynamicActors->Draw(this->renderer.get());
         SDL_RenderPresent(this->renderer.get());
+
+        this->screen->actors->UnregisterEvents();
     }
 }
