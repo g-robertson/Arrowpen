@@ -3,17 +3,14 @@
 
 #include "colors.hpp"
 #include "intactor.hpp"
+#include "rectangle.hpp"
 
-class IntRectangleActor : public IntActor {
+class IntRectangleActor : public IntActor, public RectangleActor {
     public:
         IntRectangleActor(const SDL_Color& c, bool filled = true);
-        IntRectangleActor(const SDL_Color& c, std::shared_ptr<SDL_Rect> rect, bool filled = true);
+        IntRectangleActor(const SDL_Color& c, SDL_Rect& rect, bool filled = true);
         IntRectangleActor(const SDL_Color& c, int x, int y, int w, int h, bool filled = true);
+
         void Draw(SDL_Renderer* renderer);
         NoHandle();
-
-        std::shared_ptr<SDL_Color> color;
-        bool filled;
-
-        std::shared_ptr<SDL_Rect> rect;
 };

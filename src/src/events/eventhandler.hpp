@@ -7,7 +7,11 @@
 
 #include "SDL2/SDL.h"
 
-class FullWindow;
+namespace Static {
+    namespace Screens {
+        class Screen;
+    };
+};
 
 class EventHandler {
     public:
@@ -19,5 +23,5 @@ class EventHandler {
         event_callback_t complexCallback;
         event_callback_map_t sdlEventCallbacks;
 
-        bool Handle(FullWindow* fullWindow, std::shared_ptr<SDL_Event> sdlEvent);
+        bool Handle(std::experimental::observer_ptr<Static::Screens::Screen> screen, SDL_Event& sdlEvent);
 };

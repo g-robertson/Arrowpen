@@ -15,11 +15,10 @@ class IntScaledTextActor : public IntActor {
             int x, int y, int w, int h,
             const char* text, const SDL_Color& textColor = Colors::BLACK, TTF_Font* font = Fonts::Sans.get()
         );
+
         void Draw(SDL_Renderer* renderer);
         NoHandle();
-        
-        std::shared_ptr<SDL_Rect> rect;
-        
+
     private:
         SDL_Surface* surface;
         bool assignedTexture = false;

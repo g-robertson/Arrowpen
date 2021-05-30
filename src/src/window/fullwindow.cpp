@@ -5,37 +5,49 @@
 #include "sdlhelp.hpp"
 
 FullWindow::FullWindow(
-    SDL_Window* window,
+    UPtrSDL_Window window,
     Static::Screens::ScreenNames screen,
-    std::shared_ptr<EventHandler> eventHandler
+    std::weak_ptr<EventHandler> eventHandler
 ) {
-    this->window = UPtrSDL_Window(window);
+    this->window = std::move(window);
     this->renderer = UPtrSDL_Renderer(SDL_CreateRenderer(this->window.get(), -1, SDL_RENDERER_ACCELERATED));
     this->screen = Static::Screens::SelectScreen(screen);
     this->globalEventHandler = eventHandler;
 }
 
 void FullWindow::Listen(bool allowSlow) {
-    auto sdlEvent = std::shared_ptr<SDL_Event>(new SDL_Event);
+    SDL_Event sdlEvent;
 
     int windoww;
     int windowh;
     SDL_GetWindowSize(this->window.get(), &windoww, &windowh);
-    
-    this->screen->actors->ChangeParentDimensions(windoww, windowh);
-    while (SDL_WaitEvent(sdlEvent.get())) {
-        SDL_SetRenderDrawColor(this->renderer.get(), ExpandColor(this->screen->backgroundColor));
-        SDL_RenderClear(this->renderer.get());
-        if (
-            !this->globalEventHandler->Handle(this, sdlEvent) ||
-            !this->screen->eventHandler->Handle(this, sdlEvent) ||
-            !this->screen->actors->Handle(this, sdlEvent)
-        ) {
+    if (auto screen = this->screen.lock()) {
+        screen->actors->ChangeParentDimensions(windoww, windowh);
+    }
+
+    while (SDL_WaitEvent(&sdlEvent)) {
+        if (auto screenLock = this->screen.lock()) {
+            if (auto globalEventHandler = this->globalEventHandler.lock()) {
+                auto screen = std::experimental::make_observer(screenLock.get());
+                
+                SDL_SetRenderDrawColor(this->renderer.get(), ExpandColor(screen->backgroundColor));
+                SDL_RenderClear(this->renderer.get());
+
+                screen->actors->FocusHandle(screen, sdlEvent);
+                if (
+                    !globalEventHandler->Handle(screen, sdlEvent) ||
+                    !screen->eventHandler->Handle(screen, sdlEvent) ||
+                    !screen->actors->Handle(screen, sdlEvent)
+                ) {
+                    return;
+                }
+                screen->actors->Draw(this->renderer.get());
+                SDL_RenderPresent(this->renderer.get());
+
+                screen->actors->UnregisterEvents();
+            }
+        } else {
             return;
         }
-        this->screen->actors->Draw(this->renderer.get());
-        SDL_RenderPresent(this->renderer.get());
-
-        this->screen->actors->UnregisterEvents();
     }
 }

@@ -4,6 +4,7 @@
 #include "floatactor.hpp"
 #include "events.hpp"
 #include "colors.hpp"
+#include "refrectangle.hpp"
 #include "intrectangle.hpp"
 #include "intscaledtext.hpp"
 
@@ -28,9 +29,10 @@ class ButtonActor : public FloatActor {
             float outerContrast = 1.3,
             TTF_Font* font = Fonts::Sans.get()
         );
+
         void Draw(SDL_Renderer* renderer);
-        bool Handle(FullWindow* fullWindow, std::shared_ptr<SDL_Event> sdlEvent);
-        
+        bool Handle(std::experimental::observer_ptr<Static::Screens::Screen> screen, SDL_Event& sdlEvent);
+
         event_callback_t onClick = &noEventCallback;
 
         void ChangeParentDimensions(int rw, int rh);
@@ -38,7 +40,7 @@ class ButtonActor : public FloatActor {
         float padding;
         float textPadding;
         bool pressed = false;
-        std::shared_ptr<IntRectangleActor> outerRectangleActor;
-        std::shared_ptr<IntRectangleActor> innerRectangleActor;
-        std::shared_ptr<IntScaledTextActor> scaledTextActor;
+        std::unique_ptr<RefRectangleActor> outerRectangleActor;
+        std::unique_ptr<IntRectangleActor> innerRectangleActor;
+        std::unique_ptr<IntScaledTextActor> scaledTextActor;
 };

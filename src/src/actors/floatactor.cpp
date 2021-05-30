@@ -1,11 +1,16 @@
 #include "floatactor.hpp"
+#include "fullwindow.hpp"
+
+FloatActor::FloatActor() {
+    this->rect = std::make_unique<SDL_Rect>(SDL_Rect());
+}
 
 FloatActor::FloatActor(float x, float y, float w, float h) {
     this->x = x;
     this->y = y;
     this->w = w;
     this->h = h;
-    this->rect = SharedNewPtr(SDL_Rect);
+    this->rect = std::make_unique<SDL_Rect>(SDL_Rect());
 }
 
 void FloatActor::ChangeParentDimensions(int rw, int rh) {
@@ -15,10 +20,6 @@ void FloatActor::ChangeParentDimensions(int rw, int rh) {
     // ceiled to avoid 1px missing texture lines
     this->rect->w = std::ceil(this->w * rw);
     this->rect->h = std::ceil(this->h * rh);
-}
-
-const SDL_Rect* FloatActor::rectg() {
-    return this->rect.get();
 }
 
 float FloatActor::xg() {
@@ -35,4 +36,8 @@ float FloatActor::wg() {
 
 float FloatActor::hg() {
     return this->h;
+}
+
+const std::experimental::observer_ptr<SDL_Rect> FloatActor::rectg() {
+    return std::experimental::make_observer(this->rect.get());
 }

@@ -22,9 +22,10 @@ int main(int argc, char** argv) {
     // having fullWindow as shared ptr causes segfault for some ungodly reason I cannot figure out
     // guess: probably something to do with sdl_window trying to destroy itself, but fullWindow not existing anymore
     // todo: make it a shared ptr, but for now I cannot be bothered so it will be a raw pointer
-    FullWindow* fullWindow = Init::Init();
-    fullWindow->Listen(true);
-    delete fullWindow;
+    {
+        auto fullWindow = Init::Init();
+        fullWindow->Listen(true);
+    }
     SDL_Quit();
-    return 0;
+    exit(0);
 }

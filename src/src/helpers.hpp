@@ -4,9 +4,8 @@
 #include <vector>
 #include <map>
 #include <memory>
+#include <experimental/memory>
 #include "SDL2/SDL.h"
-
-#define SharedNewPtr(type, ...) std::shared_ptr<type>(new type(__VA_ARGS__))
 
 namespace Util {
     namespace Char {
@@ -26,15 +25,19 @@ namespace Util {
 }
 
 // events.hpp & eventCallback.hpp help
-class FullWindow;
+namespace Static {
+    namespace Screens {
+        class Screen;
+    };
+};
 
-typedef bool (*event_callback_t)(FullWindow*, std::shared_ptr<SDL_Event>);
+typedef bool (*event_callback_t)(std::experimental::observer_ptr<Static::Screens::Screen>, SDL_Event&);
 typedef std::map<Uint32, event_callback_t> event_callback_map_t;
-inline bool noEventCallback(FullWindow* fullWindow, std::shared_ptr<SDL_Event> sdlEvent) {
+inline bool noEventCallback(std::experimental::observer_ptr<Static::Screens::Screen> screen, SDL_Event& sdlEvent) {
     return true;
 }
 
 // actor.hpp help
 #define NoDraw() void Draw(SDL_Renderer* renderer) {}
-#define NoHandle() bool Handle(FullWindow* fullWindow, std::shared_ptr<SDL_Event> sdlEvent) {return true;}
+#define NoHandle() bool Handle(std::experimental::observer_ptr<Static::Screens::Screen> screen, SDL_Event& sdlEvent) {return true;}
 bool InBounds(int x, int y, const SDL_Rect& rect);

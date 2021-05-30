@@ -16,7 +16,7 @@ class ScaledTextActor : public FloatActor {
         );
         void Draw(SDL_Renderer* renderer);
         NoHandle();
-        
+
     private:
         SDL_Surface* surface;
         bool assignedTexture = false;

@@ -6,12 +6,12 @@ EventHandler::EventHandler(event_callback_map_t sdlEventCallbacks, event_callbac
     this->complexCallback = complexCallback;
 }
 
-bool EventHandler::Handle(FullWindow* fullWindow, std::shared_ptr<SDL_Event> sdlEvent) {
-    if (!this->complexCallback(fullWindow, sdlEvent)) {
+bool EventHandler::Handle(std::experimental::observer_ptr<Static::Screens::Screen> screen, SDL_Event& sdlEvent) {
+    if (!this->complexCallback(screen, sdlEvent)) {
         return false;
     }
-    auto pair = sdlEventCallbacks.find(sdlEvent->type);
-    if (pair != sdlEventCallbacks.end() && !pair->second(fullWindow, sdlEvent)) {
+    auto pair = sdlEventCallbacks.find(sdlEvent.type);
+    if (pair != sdlEventCallbacks.end() && !pair->second(screen, sdlEvent)) {
         return false;
     }
 

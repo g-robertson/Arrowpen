@@ -3,17 +3,19 @@
 #include <cstdint>
 #include "SDL2/SDL.h"
 
-#define __ExpandColorSymbol(color, symbol) color symbol r, color symbol g, color symbol b, color symbol a
-#define ExpandColor(color) __ExpandColorSymbol(color, ->)
-#define ExpandColorDot(color) __ExpandColorSymbol(color, .)
+#define ExpandColorSymbol_(color, symbol) color symbol r, color symbol g, color symbol b, color symbol a
+#define ExpandColor(color) ExpandColorSymbol_(color, ->)
+#define ExpandColorDot(color) ExpandColorSymbol_(color, .)
 
 #define ColorA(red, green, blue, alpha) SDL_Color {red, green, blue, alpha}
 #define Color(red, green, blue) SDL_Color {red, green, blue}
 
 namespace Colors {
-    std::shared_ptr<SDL_Color> Scale(const SDL_Color& color, float scale);
-    std::shared_ptr<SDL_Color> Contrast(const SDL_Color& color, float contrast);
-    unsigned short Total(const SDL_Color& color);
+    void Scale(std::unique_ptr<SDL_Color>& color, float scale);
+    void Contrast(std::unique_ptr<SDL_Color>& color, float contrast);
+    std::unique_ptr<SDL_Color> Scale(const SDL_Color& color, float scale);
+    std::unique_ptr<SDL_Color> Contrast(const SDL_Color& color, float contrast);
+    unsigned short Total(const std::unique_ptr<SDL_Color>& color);
 
     #define NColorA(name, r, g, b, a) constexpr SDL_Color name = ColorA(r, g, b, a)
     #define NColor(name, r, g, b) constexpr SDL_Color name = Color(r, g, b)

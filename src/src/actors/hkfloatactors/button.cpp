@@ -7,9 +7,9 @@ ButtonActor::ButtonActor(
     const SDL_Color& textColor, const SDL_Color& backgroundColor, float outerContrast,
     TTF_Font* font
 ) : FloatActor(x, y, w, h) {
-    this->outerRectangleActor = SharedNewPtr(IntRectangleActor, *Colors::Contrast(backgroundColor, outerContrast).get(), this->rect);
-    this->innerRectangleActor = SharedNewPtr(IntRectangleActor, backgroundColor);
-    this->scaledTextActor = SharedNewPtr(IntScaledTextActor, text, textColor, font);
+    this->outerRectangleActor = std::make_unique<RefRectangleActor>(RefRectangleActor(Colors::Contrast(backgroundColor, outerContrast), this->rect));
+    this->innerRectangleActor = std::make_unique<IntRectangleActor>(IntRectangleActor(backgroundColor));
+    this->scaledTextActor = std::make_unique<IntScaledTextActor>(IntScaledTextActor(text, textColor, font));
 
     this->padding = padding;
     this->textPadding = textPadding;
@@ -24,7 +24,8 @@ ButtonActor::ButtonActor(
     const SDL_Color& backgroundColor,
     float outerContrast,
     TTF_Font* font
-) : ButtonActor(x, y, w, h, text, padding, textPadding, textColor, backgroundColor, outerContrast, font) {
+) :
+ButtonActor(x, y, w, h, text, padding, textPadding, textColor, backgroundColor, outerContrast, font) {
     this->onClick = onClickCallback;
 }
 
@@ -34,28 +35,26 @@ void ButtonActor::Draw(SDL_Renderer* renderer) {
     this->scaledTextActor->Draw(renderer);
 }
 
-bool ButtonActor::Handle(FullWindow* fullWindow, std::shared_ptr<SDL_Event> sdlEvent) {
-    switch (sdlEvent->type) {
+bool ButtonActor::Handle(std::experimental::observer_ptr<Static::Screens::Screen> screen, SDL_Event& sdlEvent) {
+    switch (sdlEvent.type) {
         case SDL_MOUSEBUTTONDOWN:
         case SDL_MOUSEBUTTONUP:
-            if (sdlEvent->button.button == SDL_BUTTON_LEFT) {
-                switch (sdlEvent->button.state) {
+            if (sdlEvent.button.button == SDL_BUTTON_LEFT) {
+                switch (sdlEvent.button.state) {
                     case SDL_PRESSED:
-                        if (!fullWindow->screen->actors->RegisteredEvent(sdlEvent->type)
-                            && !this->pressed && InBounds(sdlEvent->button.x, sdlEvent->button.y, *this->rect.get())) {
-                            this->innerRectangleActor->color = Colors::Contrast(*this->innerRectangleActor->color.get(), 1.1);
-                            this->outerRectangleActor->color = Colors::Contrast(*this->outerRectangleActor->color.get(), 1.1);
+                        if (!this->pressed && screen->actors->FocusedActor().get() == this) {
+                            Colors::Contrast(this->innerRectangleActor->color, 1.1);
+                            Colors::Contrast(this->outerRectangleActor->color, 1.1);
                             this->pressed = true;
-                            fullWindow->screen->actors->RegisterEvent(sdlEvent->type);
                         }
                         break;
                     case SDL_RELEASED:
                         if (this->pressed) {
-                            this->innerRectangleActor->color = Colors::Contrast(*this->innerRectangleActor->color.get(), 1 / 1.1);
-                            this->outerRectangleActor->color = Colors::Contrast(*this->outerRectangleActor->color.get(), 1 / 1.1);
+                            Colors::Contrast(this->innerRectangleActor->color, 1 / 1.1);
+                            Colors::Contrast(this->outerRectangleActor->color, 1 / 1.1);
                             this->pressed = false;
-                            if (InBounds(sdlEvent->button.x, sdlEvent->button.y, *this->rect.get())) {
-                                return this->onClick(fullWindow, sdlEvent);
+                            if (InBounds(sdlEvent.button.x, sdlEvent.button.y, *this->rect.get())) {
+                                return this->onClick(screen, sdlEvent);
                             }
                         }
                         break;

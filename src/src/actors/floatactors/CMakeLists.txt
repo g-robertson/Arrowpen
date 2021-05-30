@@ -1,5 +1,5 @@
 target_sources(Arrowpen
-    PRIVATE line.cpp
-    PRIVATE rectangle.cpp
-    PRIVATE scaledtext.cpp
+    PRIVATE floatline.cpp
+    PRIVATE floatrectangle.cpp
+    PRIVATE floatscaledtext.cpp
 ) 

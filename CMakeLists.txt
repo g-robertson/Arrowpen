@@ -1,7 +1,7 @@
 # I expect at bare minimum 3 year to date software (2021->2018)
 cmake_minimum_required(VERSION 3.13)
-# Same logic here
-set(CMAKE_CXX_STANDARD 17)
+# Sorry I really want to use observer_ptr
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 # Adds compile command definitions for vscode

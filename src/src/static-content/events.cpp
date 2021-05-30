@@ -2,14 +2,14 @@
 #include "fullwindow.hpp"
 #include <iostream>
 
-bool GENERIC_QUIT_FUNC(FullWindow* fullWindow, std::shared_ptr<SDL_Event> sdlEvent) {
+bool GENERIC_QUIT_FUNC(std::experimental::observer_ptr<Static::Screens::Screen> screen, SDL_Event& sdlEvent) {
     return false;
 }
 
-bool GENERIC_WINDOWEVENT_FUNC(FullWindow* fullWindow, std::shared_ptr<SDL_Event> sdlEvent) {
-    if (sdlEvent->window.event == SDL_WINDOWEVENT_RESIZED) {
+bool GENERIC_WINDOWEVENT_FUNC(std::experimental::observer_ptr<Static::Screens::Screen> screen, SDL_Event& sdlEvent) {
+    if (sdlEvent.window.event == SDL_WINDOWEVENT_RESIZED) {
 
-        fullWindow->screen->actors->ChangeParentDimensions(sdlEvent->window.data1, sdlEvent->window.data2);
+        screen->actors->ChangeParentDimensions(sdlEvent.window.data1, sdlEvent.window.data2);
     }
     return true;
 }

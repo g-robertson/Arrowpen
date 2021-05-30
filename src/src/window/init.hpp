@@ -6,5 +6,5 @@
 #include "SDL2/SDL.h"
 
 namespace Init {
-    FullWindow* Init();
+    std::unique_ptr<FullWindow> Init();
 }
