@@ -11,10 +11,10 @@ IntScaledTextActor::IntScaledTextActor(int x, int y, int w, int h, const char* t
     this->rect = std::make_unique<SDL_Rect>(SDL_Rect({x, y, w, h}));
 }
 
-void IntScaledTextActor::Draw(SDL_Renderer* renderer) {
+void IntScaledTextActor::Draw(UPtrSDL_Renderer& renderer) {
     if (!assignedTexture) {
-        this->texture = UPtrSDL_Texture(SDL_CreateTextureFromSurface(renderer, surface.get()));
+        this->texture = UPtrSDL_Texture(SDL_CreateTextureFromSurface(renderer.get(), surface.get()));
         this->assignedTexture = true;
     }
-    SDL_RenderCopy(renderer, this->texture.get(), NULL, this->rect.get());
+    SDL_RenderCopy(renderer.get(), this->texture.get(), NULL, this->rect.get());
 }

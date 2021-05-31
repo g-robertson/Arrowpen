@@ -41,7 +41,7 @@ void FullWindow::Listen(bool allowSlow) {
                 ) {
                     return;
                 }
-                screen->actors->Draw(this->renderer.get());
+                screen->actors->Draw(this->renderer);
                 SDL_RenderPresent(this->renderer.get());
 
                 screen->actors->UnregisterEvents();

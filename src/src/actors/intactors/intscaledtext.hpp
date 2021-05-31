@@ -16,7 +16,7 @@ class IntScaledTextActor : public IntActor {
             const char* text, const SDL_Color& textColor = Colors::BLACK, TTF_Font* font = Fonts::Sans.get()
         );
 
-        void Draw(SDL_Renderer* renderer);
+        void Draw(UPtrSDL_Renderer& renderer);
         NoHandle();
 
     private:

@@ -29,7 +29,7 @@ FloatButtonActor(x, y, w, h, text, padding, textPadding, textColor, backgroundCo
     this->onClick = onClickCallback;
 }
 
-void FloatButtonActor::Draw(SDL_Renderer* renderer) {
+void FloatButtonActor::Draw(UPtrSDL_Renderer& renderer) {
     this->outerRectangleActor->Draw(renderer);
     this->innerRectangleActor->Draw(renderer);
     this->scaledTextActor->Draw(renderer);

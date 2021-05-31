@@ -1,6 +1,8 @@
 #pragma once
+
 #include <experimental/memory>
 #include "colors.hpp"
+#include "sdlhelp.hpp"
 
 class RectangleActor {
     public:
@@ -10,8 +12,5 @@ class RectangleActor {
         std::unique_ptr<SDL_Color> color;
         bool filled;
     protected:
-        void RDraw(SDL_Renderer* renderer, const std::experimental::observer_ptr<SDL_Rect>& rect);
+        void RDraw(UPtrSDL_Renderer& renderer, const std::experimental::observer_ptr<SDL_Rect>& rect);
 };
-
-template <class T>
-void RectangleActorDraw(T& actor, SDL_Renderer* renderer);

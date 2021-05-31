@@ -35,7 +35,7 @@ void TopActors::UnregisterEvents() {
     this->eventsRegistered.clear();
 }
 
-void TopActors::Draw(SDL_Renderer* renderer) {
+void TopActors::Draw(UPtrSDL_Renderer& renderer) {
     // Draw forwards
     for (auto actor = this->actors.begin(); actor != this->actors.end(); ++actor) {
         (*actor)->Draw(renderer);

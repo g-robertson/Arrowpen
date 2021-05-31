@@ -11,6 +11,6 @@ class IntRectangleActor : public IntActor, public RectangleActor {
         IntRectangleActor(const SDL_Color& c, SDL_Rect& rect, bool filled = true);
         IntRectangleActor(const SDL_Color& c, int x, int y, int w, int h, bool filled = true);
 
-        void Draw(SDL_Renderer* renderer);
+        void Draw(UPtrSDL_Renderer& renderer);
         NoHandle();
 };

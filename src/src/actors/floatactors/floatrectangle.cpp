@@ -8,6 +8,6 @@ FloatRectangleActor::FloatRectangleActor(const SDL_Color& c, float x, float y, f
 FloatActor(x, y, w, h),
 RectangleActor(c, filled) {}
 
-void FloatRectangleActor::Draw(SDL_Renderer* renderer) {
+void FloatRectangleActor::Draw(UPtrSDL_Renderer& renderer) {
     this->RDraw(renderer, this->rectg());
 }

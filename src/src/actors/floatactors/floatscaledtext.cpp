@@ -7,10 +7,10 @@ FloatActor(x, y, w, h) {
     this->surface = UPtrSDL_Surface(TTF_RenderText_Blended(font, text, SDL_Color(textColor)));
 }
 
-void FloatScaledTextActor::Draw(SDL_Renderer* renderer) {
+void FloatScaledTextActor::Draw(UPtrSDL_Renderer& renderer) {
     if (!assignedTexture) {
-        this->texture = UPtrSDL_Texture(SDL_CreateTextureFromSurface(renderer, this->surface.get()));
+        this->texture = UPtrSDL_Texture(SDL_CreateTextureFromSurface(renderer.get(), this->surface.get()));
         this->assignedTexture = true;
     }
-    SDL_RenderCopy(renderer, this->texture.get(), NULL, this->rect.get());
+    SDL_RenderCopy(renderer.get(), this->texture.get(), NULL, this->rect.get());
 }

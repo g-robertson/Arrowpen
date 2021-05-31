@@ -30,7 +30,7 @@ class FloatButtonActor : public FloatActor {
             TTF_Font* font = Fonts::Sans.get()
         );
 
-        void Draw(SDL_Renderer* renderer);
+        void Draw(UPtrSDL_Renderer& renderer);
         bool Handle(std::experimental::observer_ptr<Static::Screens::Screen> screen, SDL_Event& sdlEvent);
 
         event_callback_t onClick = &noEventCallback;

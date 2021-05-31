@@ -38,6 +38,6 @@ inline bool noEventCallback(std::experimental::observer_ptr<Static::Screens::Scr
 }
 
 // actor.hpp help
-#define NoDraw() void Draw(SDL_Renderer* renderer) {}
+#define NoDraw() void Draw(UPtrSDL_Renderer& renderer) {}
 #define NoHandle() bool Handle(std::experimental::observer_ptr<Static::Screens::Screen> screen, SDL_Event& sdlEvent) {return true;}
 bool InBounds(int x, int y, const SDL_Rect& rect);
