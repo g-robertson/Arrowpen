@@ -72,9 +72,9 @@ namespace Static {
                     // pink
                     new FloatRectangleActor(Colors::PINK, 0, 1.f/8, 1, 1.f/16),
 
-                    new ScaledTextActor(1.f/8, 0, 1.f/6, 1.f/12, "graphics is my passion"),
-                    new ButtonActor(0, 1.f/6, 1.f/3, 1.f/8, "graphics is my passion button"),
-                    new ButtonActor(1.f/6, (1.f/6) + (1.f/16), 1.f/3, 1.f/8, "graphics is my overlayed button")
+                    new FloatScaledTextActor(1.f/8, 0, 1.f/6, 1.f/12, "graphics is my passion"),
+                    new FloatButtonActor(0, 1.f/6, 1.f/3, 1.f/8, "graphics is my passion button"),
+                    new FloatButtonActor(1.f/6, (1.f/6) + (1.f/16), 1.f/3, 1.f/8, "graphics is my overlayed button")
                 })),
                 std::make_unique<EventHandler>(EventHandler())
             }))

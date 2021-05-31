@@ -8,9 +8,9 @@
 #include "intrectangle.hpp"
 #include "intscaledtext.hpp"
 
-class ButtonActor : public FloatActor {
+class FloatButtonActor : public FloatActor {
     public:
-        ButtonActor(
+        FloatButtonActor(
             float x, float y, float w, float h, const char* text,
             float padding = 0.045,
             float textPadding = 0.09,
@@ -19,7 +19,7 @@ class ButtonActor : public FloatActor {
             float outerContrast = 1.3,
             TTF_Font* font = Fonts::Sans.get()
         );
-        ButtonActor(
+        FloatButtonActor(
             float x, float y, float w, float h, const char* text,
             event_callback_t onClickCallback,
             float padding = 0.045,

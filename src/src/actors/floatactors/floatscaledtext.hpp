@@ -8,9 +8,9 @@
 #include "floatactor.hpp"
 #include "colors.hpp"
 
-class ScaledTextActor : public FloatActor {
+class FloatScaledTextActor : public FloatActor {
     public:
-        ScaledTextActor(
+        FloatScaledTextActor(
             float x, float y, float w, float h,
             const char* text, const SDL_Color& textColor = Colors::BLACK, TTF_Font* font = Fonts::Sans.get()
         );

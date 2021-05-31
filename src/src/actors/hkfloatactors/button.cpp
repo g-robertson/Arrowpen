@@ -2,7 +2,7 @@
 #include "button.hpp"
 #include "fullwindow.hpp"
 
-ButtonActor::ButtonActor(
+FloatButtonActor::FloatButtonActor(
     float x, float y, float w, float h, const char* text, float padding, float textPadding,
     const SDL_Color& textColor, const SDL_Color& backgroundColor, float outerContrast,
     TTF_Font* font
@@ -15,7 +15,7 @@ ButtonActor::ButtonActor(
     this->textPadding = textPadding;
 }
 
-ButtonActor::ButtonActor(
+FloatButtonActor::FloatButtonActor(
     float x, float y, float w, float h, const char* text,
     event_callback_t onClickCallback,
     float padding,
@@ -25,17 +25,17 @@ ButtonActor::ButtonActor(
     float outerContrast,
     TTF_Font* font
 ) :
-ButtonActor(x, y, w, h, text, padding, textPadding, textColor, backgroundColor, outerContrast, font) {
+FloatButtonActor(x, y, w, h, text, padding, textPadding, textColor, backgroundColor, outerContrast, font) {
     this->onClick = onClickCallback;
 }
 
-void ButtonActor::Draw(SDL_Renderer* renderer) {
+void FloatButtonActor::Draw(SDL_Renderer* renderer) {
     this->outerRectangleActor->Draw(renderer);
     this->innerRectangleActor->Draw(renderer);
     this->scaledTextActor->Draw(renderer);
 }
 
-bool ButtonActor::Handle(std::experimental::observer_ptr<Static::Screens::Screen> screen, SDL_Event& sdlEvent) {
+bool FloatButtonActor::Handle(std::experimental::observer_ptr<Static::Screens::Screen> screen, SDL_Event& sdlEvent) {
     switch (sdlEvent.type) {
         case SDL_MOUSEBUTTONDOWN:
         case SDL_MOUSEBUTTONUP:
@@ -65,7 +65,7 @@ bool ButtonActor::Handle(std::experimental::observer_ptr<Static::Screens::Screen
     return true;
 }
 
-void ButtonActor::ChangeParentDimensions(int rw, int rh) {
+void FloatButtonActor::ChangeParentDimensions(int rw, int rh) {
     // floored to be consistent with the ceil
     this->rect->x = std::floor(this->x * rw);
     this->rect->y = std::floor(this->y * rh);
