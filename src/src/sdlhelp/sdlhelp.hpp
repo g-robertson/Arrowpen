@@ -15,6 +15,9 @@ struct SDL_Destroy {
     void operator() (SDL_Texture* texture) {
         SDL_DestroyTexture(texture);
     }
+    void operator() (SDL_Surface* surface) {
+        SDL_FreeSurface(surface);
+    }
     void operator() (TTF_Font* font) {
         TTF_CloseFont(font);
     }
@@ -22,5 +25,6 @@ struct SDL_Destroy {
 
 typedef std::unique_ptr<SDL_Window, SDL_Destroy> UPtrSDL_Window;
 typedef std::unique_ptr<SDL_Renderer, SDL_Destroy> UPtrSDL_Renderer;
+typedef std::unique_ptr<SDL_Surface, SDL_Destroy> UPtrSDL_Surface;
 typedef std::unique_ptr<SDL_Texture, SDL_Destroy> UPtrSDL_Texture;
 typedef std::unique_ptr<TTF_Font, SDL_Destroy> UPtrTTF_Font;

@@ -20,7 +20,7 @@ class IntScaledTextActor : public IntActor {
         NoHandle();
 
     private:
-        SDL_Surface* surface;
+        UPtrSDL_Surface surface;
         bool assignedTexture = false;
         UPtrSDL_Texture texture;
 };
