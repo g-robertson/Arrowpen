@@ -4,7 +4,7 @@
 #include "sdlhelp.hpp"
 #include "SDL2/SDL_ttf.h"
 
-#include "Fonts/PTSans-Regular.ttf.hpp"
+#include "Fonts/PT-Sans_Regular.hpp"
 
 namespace {
     TTF_Font* TTF_InitAndOpenFont(const char* file, int ptsize) {

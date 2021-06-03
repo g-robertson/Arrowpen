@@ -1,7 +1,20 @@
-SDL2 for powering the GUI behind this
-PTSans for the font
-
 Etterna & Stepmania websites/etc helped tons in researching formats
 
 poco0317 <https://github.com/poco0317> specifically helped a lot in terms of 
 questions related to specifics on the formats used for charting
+
+
+================== SOFTWARE USED ==================
+
+SDL2 is used for portable GUI, licensed under zlib license.
+You can find SDL2 libraries at https://www.libsdl.org/download-2.0.php/.
+
+SDL2_ttf is used for text rendering, licensed under zlib license.
+You can find SDL2_ttf libraries at https://www.libsdl.org/projects/SDL_ttf/.
+
+FreeType Project is used by extension of SDL2_ttf for text rendering, licensed under FreeType license.
+Portions of this software are copyright © 2021 The FreeType Project (www.freetype.org).  All rights reserved.
+You can find FreeType libraries at https://www.freetype.org/download.html/.
+
+PTSans is used as the font in the application, licensed under SIL Open Font License
+You can find PTSans fonts at https://www.paratype.com/fonts/pt/pt-sans
