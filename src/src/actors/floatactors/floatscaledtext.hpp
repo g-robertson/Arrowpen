@@ -16,9 +16,10 @@ class FloatScaledTextActor : public FloatActor {
         );
         void Draw(UPtrSDL_Renderer& renderer);
         NoHandle();
-
+        std::list<UPtrSDL_Texture> Init(UPtrSDL_Renderer& renderer);
     private:
-        UPtrSDL_Surface surface;
-        bool assignedTexture = false;
-        UPtrSDL_Texture texture;
+        union {
+            SDL_Surface* surface;
+            SDL_Texture* texture;
+        };
 };

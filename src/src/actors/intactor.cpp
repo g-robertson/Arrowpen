@@ -16,6 +16,6 @@ IntActor::IntActor(int x, int y, int w, int h) {
     this->rect = std::make_unique<SDL_Rect>(SDL_Rect{x, y, w, h});
 }
 
-const std::experimental::observer_ptr<SDL_Rect> IntActor::rectg() {
-    return std::experimental::make_observer(this->rect.get());
+const SDL_Rect* IntActor::rectg() {
+    return this->rect.get();
 }

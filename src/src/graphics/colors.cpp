@@ -1,6 +1,5 @@
 #include "helpers.hpp"
 #include "colors.hpp"
-#include <iostream>
 
 void Colors::Scale(std::unique_ptr<SDL_Color>& color, float scale) {
     color->r = static_cast<Uint8>(std::round(std::min(255.0f, 255 - ((255 - color->r) * scale))));

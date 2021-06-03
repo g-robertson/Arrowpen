@@ -1,6 +1,7 @@
 #include "colors.hpp"
 #include "button.hpp"
 #include "fullwindow.hpp"
+#include <iostream>
 
 FloatButtonActor::FloatButtonActor(
     float x, float y, float w, float h, const char* text, float padding, float textPadding,
@@ -13,6 +14,8 @@ FloatButtonActor::FloatButtonActor(
 
     this->padding = padding;
     this->textPadding = textPadding;
+    std::ios_base::Init m_ostreamInit;
+    std::cout << "alloc butn" << text << " " <<  (void*)this << std::endl;
 }
 
 FloatButtonActor::FloatButtonActor(
@@ -35,14 +38,14 @@ void FloatButtonActor::Draw(UPtrSDL_Renderer& renderer) {
     this->scaledTextActor->Draw(renderer);
 }
 
-bool FloatButtonActor::Handle(std::experimental::observer_ptr<Static::Screens::Screen> screen, SDL_Event& sdlEvent) {
+bool FloatButtonActor::Handle(Static::Screens::Screen* screen, SDL_Event& sdlEvent) {
     switch (sdlEvent.type) {
         case SDL_MOUSEBUTTONDOWN:
         case SDL_MOUSEBUTTONUP:
             if (sdlEvent.button.button == SDL_BUTTON_LEFT) {
                 switch (sdlEvent.button.state) {
                     case SDL_PRESSED:
-                        if (!this->pressed && screen->actors->FocusedActor().get() == this) {
+                        if (!this->pressed && screen->actors->FocusedActor() == this) {
                             Colors::Contrast(this->innerRectangleActor->color, 1.1);
                             Colors::Contrast(this->outerRectangleActor->color, 1.1);
                             this->pressed = true;
@@ -63,6 +66,10 @@ bool FloatButtonActor::Handle(std::experimental::observer_ptr<Static::Screens::S
             break;
     }
     return true;
+}
+
+std::list<UPtrSDL_Texture> FloatButtonActor::Init(UPtrSDL_Renderer& renderer) {
+    return this->scaledTextActor->Init(renderer);
 }
 
 void FloatButtonActor::ChangeParentDimensions(int rw, int rh) {

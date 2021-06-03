@@ -11,20 +11,20 @@
 #include "sdlhelp.hpp"
 #include "SDL2/SDL.h"
 
-constexpr int W_STANDARD = 1366;
-constexpr int H_STANDARD = 768;
-constexpr int H_MIN = 400;
+constexpr static int W_STANDARD = 1366;
+constexpr static int H_STANDARD = 768;
+constexpr static int H_MIN = 400;
 
-constexpr int W_MIN = cexprceil(static_cast<float>(H_MIN) * (static_cast<float>(W_STANDARD) / static_cast<float>(H_STANDARD)));
+constexpr static int W_MIN = cexprceil(static_cast<float>(H_MIN) * (static_cast<float>(W_STANDARD) / static_cast<float>(H_STANDARD)));
 
-std::unique_ptr<FullWindow> Init::Init() {
+std::unique_ptr<FullWindow> Init::Init(std::unique_ptr<SDL_Context> context) {
     auto screen = Static::Screens::ScreenNames::TEST_SCREEN;
     auto fullWindow = std::make_unique<FullWindow>(FullWindow(
-        UPtrSDL_Window(SDL_CreateWindow("Arrowpen", 200, 200, 1000, 500, SDL_WINDOW_RESIZABLE)),
+        std::move(context),
         screen,
-        Static::Events::GenericEventHandler
+        Static::Events::GenericEventHandler.get()
     ));
-    SDL_SetWindowMinimumSize(fullWindow->window.get(), W_MIN, H_MIN);
+    SDL_SetWindowMinimumSize(fullWindow->context->window.get(), W_MIN, H_MIN);
     SDL_Event initEvent;
     initEvent.type = Static::Events::INIT_EVENT;
     SDL_PushEvent(&initEvent);

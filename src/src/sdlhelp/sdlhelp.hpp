@@ -7,19 +7,29 @@
 
 struct SDL_Destroy {
     void operator() (SDL_Window* window) {
-        SDL_DestroyWindow(window);
+        if (window != nullptr) {
+            SDL_DestroyWindow(window);
+        }
     }
     void operator() (SDL_Renderer* renderer) {
-        SDL_DestroyRenderer(renderer);
+        if (renderer != nullptr) {
+            SDL_DestroyRenderer(renderer);
+        }
     }
     void operator() (SDL_Texture* texture) {
-        SDL_DestroyTexture(texture);
+        if (texture != nullptr) {
+            SDL_DestroyTexture(texture);
+        }
     }
     void operator() (SDL_Surface* surface) {
-        SDL_FreeSurface(surface);
+        if (surface != nullptr) {
+            SDL_FreeSurface(surface);
+        }
     }
     void operator() (TTF_Font* font) {
-        TTF_CloseFont(font);
+        if (font != nullptr) {
+            TTF_CloseFont(font);
+        }
     }
 }; 
 
@@ -28,3 +38,10 @@ typedef std::unique_ptr<SDL_Renderer, SDL_Destroy> UPtrSDL_Renderer;
 typedef std::unique_ptr<SDL_Surface, SDL_Destroy> UPtrSDL_Surface;
 typedef std::unique_ptr<SDL_Texture, SDL_Destroy> UPtrSDL_Texture;
 typedef std::unique_ptr<TTF_Font, SDL_Destroy> UPtrTTF_Font;
+
+class SDL_Context {
+    public:
+        SDL_Context(UPtrSDL_Window window);
+        UPtrSDL_Window window;
+        UPtrSDL_Renderer renderer;
+};

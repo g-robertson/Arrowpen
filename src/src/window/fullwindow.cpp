@@ -1,53 +1,42 @@
-#include <iostream>
 #include <chrono>
 #include "screens.hpp"
 #include "fullwindow.hpp"
 #include "sdlhelp.hpp"
 
 FullWindow::FullWindow(
-    UPtrSDL_Window window,
+    std::unique_ptr<SDL_Context> context,
     Static::Screens::ScreenNames screen,
-    std::weak_ptr<EventHandler> eventHandler
+    EventHandler* eventHandler
 ) {
-    this->window = std::move(window);
-    this->renderer = UPtrSDL_Renderer(SDL_CreateRenderer(this->window.get(), -1, SDL_RENDERER_ACCELERATED));
+    this->context = std::move(context);
     this->screen = Static::Screens::SelectScreen(screen);
     this->globalEventHandler = eventHandler;
 }
 
 void FullWindow::Listen(bool allowSlow) {
-    SDL_Event sdlEvent;
-
     int windoww;
     int windowh;
-    SDL_GetWindowSize(this->window.get(), &windoww, &windowh);
-    if (auto screen = this->screen.lock()) {
-        screen->actors->ChangeParentDimensions(windoww, windowh);
-    }
-
+    SDL_GetWindowSize(this->context->window.get(), &windoww, &windowh);
+    this->screen->actors->ChangeParentDimensions(windoww, windowh);
+    
+    SDL_Event sdlEvent;
     while (SDL_WaitEvent(&sdlEvent)) {
-        if (auto screenLock = this->screen.lock()) {
-            if (auto globalEventHandler = this->globalEventHandler.lock()) {
-                auto screen = std::experimental::make_observer(screenLock.get());
-                
-                SDL_SetRenderDrawColor(this->renderer.get(), ExpandColor(screen->backgroundColor));
-                SDL_RenderClear(this->renderer.get());
 
-                screen->actors->FocusHandle(screen, sdlEvent);
-                if (
-                    !globalEventHandler->Handle(screen, sdlEvent) ||
-                    !screen->eventHandler->Handle(screen, sdlEvent) ||
-                    !screen->actors->Handle(screen, sdlEvent)
-                ) {
-                    return;
-                }
-                screen->actors->Draw(this->renderer);
-                SDL_RenderPresent(this->renderer.get());
+        SDL_SetRenderDrawColor(this->context->renderer.get(), ExpandColor(this->screen->backgroundColor));
+        SDL_RenderClear(this->context->renderer.get());
 
-                screen->actors->UnregisterEvents();
-            }
-        } else {
+        this->screen->actors->FocusHandle(this->screen, sdlEvent);
+        if (
+            !this->globalEventHandler->Handle(this->screen, sdlEvent) ||
+            !this->screen->eventHandler->Handle(this->screen, sdlEvent) ||
+            !this->screen->actors->Handle(this->screen, sdlEvent)
+        ) {
             return;
         }
+        this->screen->actors->Draw(this->context->renderer);
+        SDL_RenderPresent(this->context->renderer.get());
+
+        this->screen->actors->UnregisterEvents();
     }
+    return;
 }

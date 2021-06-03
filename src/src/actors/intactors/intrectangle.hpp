@@ -5,7 +5,7 @@
 #include "intactor.hpp"
 #include "rectangle.hpp"
 
-class IntRectangleActor : public IntActor, public RectangleActor {
+class IntRectangleActor : public RectangleActor, public IntActor {
     public:
         IntRectangleActor(const SDL_Color& c, bool filled = true);
         IntRectangleActor(const SDL_Color& c, SDL_Rect& rect, bool filled = true);

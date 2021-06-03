@@ -12,5 +12,5 @@ class RectangleActor {
         std::unique_ptr<SDL_Color> color;
         bool filled;
     protected:
-        void RDraw(UPtrSDL_Renderer& renderer, const std::experimental::observer_ptr<SDL_Rect>& rect);
+        void RDraw(UPtrSDL_Renderer& renderer, const SDL_Rect* rect);
 };

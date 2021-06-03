@@ -12,8 +12,9 @@ class FloatActor : public Actor {
         float yg();
         float wg();
         float hg();
-        const std::experimental::observer_ptr<SDL_Rect> rectg();
+        const SDL_Rect* rectg();
 
+        virtual ~FloatActor() {};
     protected:
         std::unique_ptr<SDL_Rect> rect;
         float x;

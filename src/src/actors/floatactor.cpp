@@ -38,6 +38,6 @@ float FloatActor::hg() {
     return this->h;
 }
 
-const std::experimental::observer_ptr<SDL_Rect> FloatActor::rectg() {
-    return std::experimental::make_observer(this->rect.get());
+const SDL_Rect* FloatActor::rectg() {
+    return this->rect.get();
 }

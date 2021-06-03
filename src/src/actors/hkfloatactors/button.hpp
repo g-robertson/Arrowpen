@@ -31,8 +31,9 @@ class FloatButtonActor : public FloatActor {
         );
 
         void Draw(UPtrSDL_Renderer& renderer);
-        bool Handle(std::experimental::observer_ptr<Static::Screens::Screen> screen, SDL_Event& sdlEvent);
-
+        bool Handle(Static::Screens::Screen* screen, SDL_Event& sdlEvent);
+        std::list<UPtrSDL_Texture> Init(UPtrSDL_Renderer& renderer);
+        
         event_callback_t onClick = &noEventCallback;
 
         void ChangeParentDimensions(int rw, int rh);

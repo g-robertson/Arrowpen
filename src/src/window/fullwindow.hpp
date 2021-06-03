@@ -13,14 +13,12 @@ class TopActors;
 class FullWindow {
     public:
         FullWindow(
-            UPtrSDL_Window window,
+            std::unique_ptr<SDL_Context> context,
             Static::Screens::ScreenNames screen,
-            std::weak_ptr<EventHandler> eventHandler
+            EventHandler* eventHandler
         );
         void Listen(bool allowSlow = false);
-
-        UPtrSDL_Window window;
-        UPtrSDL_Renderer renderer;
-        std::weak_ptr<Static::Screens::Screen> screen;
-        std::weak_ptr<EventHandler> globalEventHandler;
+        std::unique_ptr<SDL_Context> context;
+        Static::Screens::Screen* screen;
+        EventHandler* globalEventHandler;
 };

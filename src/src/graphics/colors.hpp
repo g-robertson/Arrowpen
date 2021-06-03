@@ -8,7 +8,7 @@
 #define ExpandColorDot(color) ExpandColorSymbol_(color, .)
 
 #define ColorA(red, green, blue, alpha) SDL_Color {red, green, blue, alpha}
-#define Color(red, green, blue) SDL_Color {red, green, blue}
+#define Color(red, green, blue) SDL_Color {red, green, blue, 255}
 
 namespace Colors {
     void Scale(std::unique_ptr<SDL_Color>& color, float scale);
@@ -17,8 +17,8 @@ namespace Colors {
     std::unique_ptr<SDL_Color> Contrast(const SDL_Color& color, float contrast);
     unsigned short Total(const std::unique_ptr<SDL_Color>& color);
 
-    #define NColorA(name, r, g, b, a) constexpr SDL_Color name = ColorA(r, g, b, a)
-    #define NColor(name, r, g, b) constexpr SDL_Color name = Color(r, g, b)
+    #define NColorA(name, r, g, b, a) constexpr static SDL_Color name = ColorA(r, g, b, a)
+    #define NColor(name, r, g, b) constexpr static SDL_Color name = Color(r, g, b)
     #define GRAY(hex) NColor(GRAY ## hex, 0x ## hex, 0x ## hex, 0x ## hex)
     GRAY(CF);
     GRAY(AF);
@@ -64,9 +64,9 @@ namespace Colors {
 
 
     // Common Use
-    constexpr SDL_Color ERROR = PURPLE;
-    constexpr SDL_Color DARKTHEME_TEXT = GRAYAF;
-    constexpr SDL_Color DARKTHEME_BACKGROUND = GRAY1F;
+    constexpr static SDL_Color ERROR = PURPLE;
+    constexpr static SDL_Color DARKTHEME_TEXT = GRAYAF;
+    constexpr static SDL_Color DARKTHEME_BACKGROUND = GRAY1F;
 
     #undef NColor
     #undef NColorA

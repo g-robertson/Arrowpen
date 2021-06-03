@@ -23,5 +23,5 @@ class EventHandler {
         event_callback_t complexCallback;
         event_callback_map_t sdlEventCallbacks;
 
-        bool Handle(std::experimental::observer_ptr<Static::Screens::Screen> screen, SDL_Event& sdlEvent);
+        bool Handle(Static::Screens::Screen* screen, SDL_Event& sdlEvent);
 };

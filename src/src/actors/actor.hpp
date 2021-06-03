@@ -2,6 +2,7 @@
 
 #include <experimental/memory>
 #include <memory>
+#include <list>
 #include "SDL2/SDL.h"
 
 #include "helpers.hpp"
@@ -16,9 +17,12 @@ namespace Static {
 
 class Actor {
     public:
-        virtual void Draw(UPtrSDL_Renderer& renderer) = 0;
-        virtual bool Handle(std::experimental::observer_ptr<Static::Screens::Screen> screen, SDL_Event& sdlEvent) = 0;
-        virtual void FocusHandle(std::experimental::observer_ptr<Static::Screens::Screen> screen, SDL_Event& sdlEvent) {};
-        
-        virtual const std::experimental::observer_ptr<SDL_Rect> rectg() = 0;
+        virtual void Draw(UPtrSDL_Renderer&) = 0;
+        virtual bool Handle(Static::Screens::Screen*, SDL_Event&) = 0;
+        virtual void FocusHandle(Static::Screens::Screen*, SDL_Event&) {};
+        virtual std::list<UPtrSDL_Texture> Init(UPtrSDL_Renderer&) {return std::list<UPtrSDL_Texture>();}
+
+        virtual const SDL_Rect* rectg() = 0;
+
+        virtual ~Actor() {};
 };

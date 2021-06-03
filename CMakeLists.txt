@@ -7,6 +7,15 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 # Adds compile command definitions for vscode
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+# Set default cmake build type to release
+if(NOT CMAKE_BUILD_TYPE)
+  set(CMAKE_BUILD_TYPE Release)
+endif()
+
+set(CMAKE_CXX_FLAGS "-Wall -Wextra")
+set(CMAKE_CXX_FLAGS_DEBUG "-g")
+set(CMAKE_CXX_FLAGS_RELEASE "-O3")
+
 set(ARROWPEN_VERSION 0.0.1)
 
 # Project name
@@ -15,6 +24,7 @@ project(Arrowpen
     HOMEPAGE_URL https://github.com/g-robertson/arrowpen/
     LANGUAGES C CXX
 )
+
 
 # Add executable
 add_executable(Arrowpen src/main.cpp)
