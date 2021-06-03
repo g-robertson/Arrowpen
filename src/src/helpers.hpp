@@ -7,6 +7,16 @@
 #include <experimental/memory>
 #include "SDL2/SDL.h"
 
+template <typename T>
+constexpr int cexprfloor(T number) {
+    return (number == static_cast<T>(static_cast<int>(number))) ? number :static_cast<int>(number + ((number > 0) ? 0 : -1));
+}
+
+template <typename T>
+constexpr int cexprceil(T number) {
+    return (number == static_cast<T>(static_cast<int>(number))) ? number : static_cast<int>(number + ((number > 0) ? 1 : 0));
+}
+
 namespace Util {
     namespace Char {
         bool isWhitespace(char c);
