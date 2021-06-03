@@ -1,11 +1,9 @@
 #include "topactors.hpp"
 #include "sdlhelp.hpp"
-#include <iostream>
 TopActors::TopActors() {
 }
 
 TopActors::TopActors(std::initializer_list<FloatActor*> actors) {
-    std::cout << "top actors ctor" << std::endl;
     for (auto actor = actors.begin(); actor != actors.end(); ++actor) {
         this->actors.emplace_back(std::unique_ptr<FloatActor, FloatActor_Destroy>(*actor));
     }

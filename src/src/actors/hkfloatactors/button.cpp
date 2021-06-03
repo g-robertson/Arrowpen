@@ -1,7 +1,6 @@
 #include "colors.hpp"
 #include "button.hpp"
 #include "fullwindow.hpp"
-#include <iostream>
 
 FloatButtonActor::FloatButtonActor(
     float x, float y, float w, float h, const char* text, float padding, float textPadding,
@@ -14,8 +13,6 @@ FloatButtonActor::FloatButtonActor(
 
     this->padding = padding;
     this->textPadding = textPadding;
-    std::ios_base::Init m_ostreamInit;
-    std::cout << "alloc butn" << text << " " <<  (void*)this << std::endl;
 }
 
 FloatButtonActor::FloatButtonActor(
