@@ -23,9 +23,10 @@ add_subdirectory(src)
 # Add external dependencies
 add_subdirectory(extern)
 
+# Make executable compile in root directory
 set_target_properties(Arrowpen
     PROPERTIES
-    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/.."
+    RUNTIME_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}"
 )
 
 
