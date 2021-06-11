@@ -26,3 +26,9 @@ class Actor {
 
         virtual ~Actor() {};
 };
+
+struct Actor_Destroy {
+    void operator() (Actor* actor) {
+        delete actor;
+    }
+};

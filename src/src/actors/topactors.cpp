@@ -3,16 +3,24 @@
 TopActors::TopActors() {
 }
 
-TopActors::TopActors(std::initializer_list<FloatActor*> actors) {
+TopActors::TopActors(std::initializer_list<std::pair<bool, Actor*>> actors) {
     for (auto actor = actors.begin(); actor != actors.end(); ++actor) {
-        this->actors.emplace_back(std::unique_ptr<FloatActor, FloatActor_Destroy>(*actor));
+        this->actors.emplace_back(std::unique_ptr<Actor, Actor_Destroy>(actor->second));
+        // is FloatActor
+        if (actor->first) {
+            this->floatActors.emplace_front(dynamic_cast<FloatActor*>(actor->second));
+        }
     }
 }
 
-TopActors::TopActors(std::initializer_list<FloatActor*> actors, int rw, int rh) {
+TopActors::TopActors(std::initializer_list<std::pair<bool, Actor*>> actors, int rw, int rh) {
     for (auto actor = actors.begin(); actor != actors.end(); ++actor) {
-        (*actor)->ChangeParentDimensions(rw, rh);
-        this->actors.emplace_back(std::unique_ptr<FloatActor, FloatActor_Destroy>(*actor));
+        this->actors.emplace_back(std::unique_ptr<Actor, Actor_Destroy>(actor->second));
+        // is FloatActor
+        if (actor->first) {
+            this->floatActors.emplace_front(dynamic_cast<FloatActor*>(actor->second));
+            dynamic_cast<FloatActor*>(actor->second)->ChangeParentDimensions(rw, rh);
+        }
     }
 }
 
@@ -26,8 +34,8 @@ std::list<UPtrSDL_Texture> TopActors::InitActors(UPtrSDL_Renderer& renderer) {
 }
 
 void TopActors::ChangeParentDimensions(int rw, int rh) {
-    for (auto actor = this->actors.begin(); actor != this->actors.end(); ++actor) {
-        (*actor)->ChangeParentDimensions(rw, rh);
+    for (auto floatActor = this->floatActors.begin(); floatActor != this->floatActors.end(); ++floatActor) {
+        (*floatActor)->ChangeParentDimensions(rw, rh);
     }
 }
 

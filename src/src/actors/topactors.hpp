@@ -2,6 +2,7 @@
 #include "SDL2/SDL.h"
 #include <memory>
 #include <set>
+#include <forward_list>
 #include <list>
 #include <experimental/memory>
 #include "floatactor.hpp"
@@ -9,8 +10,8 @@
 class TopActors {
     public:
         TopActors();
-        TopActors(std::initializer_list<FloatActor*> actors);
-        TopActors(std::initializer_list<FloatActor*> actors, int rw, int rh);
+        TopActors(std::initializer_list<std::pair<bool, Actor*>> actors);
+        TopActors(std::initializer_list<std::pair<bool, Actor*>> actors, int rw, int rh);
 
         void Draw(UPtrSDL_Renderer& renderer);
         bool Handle(Static::Screens::Screen* screen, SDL_Event& sdlEvent);
@@ -27,7 +28,8 @@ class TopActors {
         const Actor* FocusedActor();
     private:
         std::set<Uint32> eventsRegistered;
-        std::list<std::unique_ptr<FloatActor, FloatActor_Destroy>> actors;
+        std::forward_list<FloatActor*> floatActors;
+        std::list<std::unique_ptr<Actor, Actor_Destroy>> actors;
 
         Actor* focusedActor;
 };
