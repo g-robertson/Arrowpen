@@ -1,32 +1,27 @@
 #pragma once
-#include <memory>
 
-#include "floatactor.hpp"
+#include "owningactor.hpp"
 #include "events.hpp"
 #include "colors.hpp"
 #include "refrectangle.hpp"
 #include "intrectangle.hpp"
 #include "intscaledtext.hpp"
 
-class FloatButtonActor : public FloatActor {
+class ButtonActor : virtual public OwningActor {
     public:
-        FloatButtonActor(
-            float x, float y, float w, float h, const char* text,
-            float padding = 0.045,
-            float textPadding = 0.09,
+        ButtonActor(
+            const char* text,
             const SDL_Color& textColor = Colors::DARKTHEME_TEXT, 
             const SDL_Color& backgroundColor = Colors::DARKTHEME_BACKGROUND,
-            float outerContrast = 1.3,
+            float outerContrast = 1.3f,
             TTF_Font* font = Fonts::Sans.get()
         );
-        FloatButtonActor(
-            float x, float y, float w, float h, const char* text,
+        ButtonActor(
+            const char* text,
             event_callback_t onClickCallback,
-            float padding = 0.045,
-            float textPadding = 0.09,
             const SDL_Color& textColor = Colors::DARKTHEME_TEXT, 
             const SDL_Color& backgroundColor = Colors::DARKTHEME_BACKGROUND,
-            float outerContrast = 1.3,
+            float outerContrast = 1.3f,
             TTF_Font* font = Fonts::Sans.get()
         );
 
@@ -36,12 +31,11 @@ class FloatButtonActor : public FloatActor {
         
         event_callback_t onClick = &noEventCallback;
 
-        void ChangeParentDimensions(int rw, int rh);
-    private:
-        float padding;
-        float textPadding;
-        bool pressed = false;
+    protected:
         std::unique_ptr<RefRectangleActor> outerRectangleActor;
         std::unique_ptr<IntRectangleActor> innerRectangleActor;
         std::unique_ptr<IntScaledTextActor> scaledTextActor;
+
+    private:
+        bool pressed = false;
 };

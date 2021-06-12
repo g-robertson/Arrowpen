@@ -1,6 +1,13 @@
 #include "logging.hpp"
 #include "screens.hpp"
 
+#include "floatbutton.hpp"
+#include "floatscaledtext.hpp"
+#include "floatrectangle.hpp"
+
+#define FL(actor) {true, new actor}
+#define INT(actor) {false, new actor}
+
 const std::map<Static::Screens::ScreenNames, std::shared_ptr<Static::Screens::Screen>> Static::Screens::SCREEN_SELECTIONS = {
     std::make_pair<Static::Screens::ScreenNames, std::shared_ptr<Static::Screens::Screen>>(
         Static::Screens::ScreenNames::NULL_SCREEN,
@@ -16,8 +23,6 @@ const std::map<Static::Screens::ScreenNames, std::shared_ptr<Static::Screens::Sc
             std::make_unique<SDL_Color>(Colors::ERROR),
             std::make_unique<TopActors>(TopActors({
                 // primary and secondary colors and white and black
-                #define FL(actor) {true, new actor}
-                #define INT(actor) {false, new actor}
                 FL(FloatRectangleActor(Colors::BLACK, 0, 0, 1.f/15, 1)),
                 FL(FloatRectangleActor(Colors::RED, 1.f/15, 0, 1.f/15, 1)),
                 FL(FloatRectangleActor(Colors::GREEN, 2.f/15, 0, 1.f/15, 1)),
@@ -61,6 +66,10 @@ const std::map<Static::Screens::ScreenNames, std::shared_ptr<Static::Screens::Sc
         }))
     )
 };
+
+#undef FL
+#undef INT
+
 
 std::list<UPtrSDL_Texture> Static::Screens::Init(UPtrSDL_Renderer& renderer) {
     std::list<UPtrSDL_Texture> inittedTextures;

@@ -4,7 +4,6 @@
 #include <vector>
 #include <map>
 #include <memory>
-#include <experimental/memory>
 #include "SDL2/SDL.h"
 
 template <typename T>
@@ -49,5 +48,4 @@ inline bool noEventCallback(Static::Screens::Screen*, SDL_Event&) {
 
 // actor.hpp help
 #define NoDraw() void Draw(UPtrSDL_Renderer&) {}
-#define NoHandle() bool Handle(Static::Screens::Screen*, SDL_Event&) {return true;}
 bool InBounds(int x, int y, const SDL_Rect& rect);

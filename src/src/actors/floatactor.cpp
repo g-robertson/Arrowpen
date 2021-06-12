@@ -1,16 +1,15 @@
 #include "floatactor.hpp"
-#include "fullwindow.hpp"
 
 FloatActor::FloatActor() {
     this->rect = std::make_unique<SDL_Rect>(SDL_Rect());
 }
 
-FloatActor::FloatActor(float x, float y, float w, float h) {
+FloatActor::FloatActor(float x, float y, float w, float h) :
+FloatActor::FloatActor() {
     this->x = x;
     this->y = y;
     this->w = w;
     this->h = h;
-    this->rect = std::make_unique<SDL_Rect>(SDL_Rect());
 }
 
 void FloatActor::ChangeParentDimensions(int rw, int rh) {
@@ -36,8 +35,4 @@ float FloatActor::wg() {
 
 float FloatActor::hg() {
     return this->h;
-}
-
-const SDL_Rect* FloatActor::rectg() {
-    return this->rect.get();
 }

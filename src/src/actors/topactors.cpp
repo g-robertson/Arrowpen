@@ -1,9 +1,13 @@
 #include "topactors.hpp"
-#include "sdlhelp.hpp"
-TopActors::TopActors() {
+TopActors::TopActors(int usedIntX, int usedIntY, float usedFloatX, float usedFloatY) {
+    this->usedIntX = usedIntX;
+    this->usedIntY = usedIntY;
+    this->usedFloatX = usedFloatX;
+    this->usedFloatY = usedFloatY;
 }
 
-TopActors::TopActors(std::initializer_list<std::pair<bool, Actor*>> actors) {
+TopActors::TopActors(std::initializer_list<std::pair<bool, Actor*>> actors, int usedIntX, int usedIntY, float usedFloatX, float usedFloatY) :
+TopActors::TopActors(usedIntX, usedIntY, usedFloatX, usedFloatY) {
     for (auto actor = actors.begin(); actor != actors.end(); ++actor) {
         this->actors.emplace_back(std::unique_ptr<Actor, Actor_Destroy>(actor->second));
         // is FloatActor
@@ -13,7 +17,8 @@ TopActors::TopActors(std::initializer_list<std::pair<bool, Actor*>> actors) {
     }
 }
 
-TopActors::TopActors(std::initializer_list<std::pair<bool, Actor*>> actors, int rw, int rh) {
+TopActors::TopActors(int rw, int rh, std::initializer_list<std::pair<bool, Actor*>> actors, int usedIntX, int usedIntY, float usedFloatX, float usedFloatY) :
+TopActors::TopActors(usedIntX, usedIntY, usedFloatX, usedFloatY) {
     for (auto actor = actors.begin(); actor != actors.end(); ++actor) {
         this->actors.emplace_back(std::unique_ptr<Actor, Actor_Destroy>(actor->second));
         // is FloatActor

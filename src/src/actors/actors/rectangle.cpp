@@ -13,11 +13,11 @@ RectangleActor::RectangleActor(std::unique_ptr<SDL_Color> c, bool filled) {
 RectangleActor::RectangleActor(const SDL_Color& c, bool filled) :
 RectangleActor::RectangleActor(std::make_unique<SDL_Color>(c), filled) {}
 
-void RectangleActor::RDraw(UPtrSDL_Renderer& renderer, const SDL_Rect* rect) {
+void RectangleActor::Draw(UPtrSDL_Renderer& renderer) {
     SDL_SetRenderDrawColor(renderer.get(), ExpandColor(this->color));
     if (this->filled) {
-        SDL_RenderFillRect(renderer.get(), rect);
+        SDL_RenderFillRect(renderer.get(), this->rectg());
     } else {
-        SDL_RenderDrawRect(renderer.get(), rect);
+        SDL_RenderDrawRect(renderer.get(), this->rectg());
     }
 }

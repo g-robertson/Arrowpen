@@ -4,10 +4,7 @@
 
 #include "topactors.hpp"
 #include "actor.hpp"
-
-#include "button.hpp"
-#include "floatscaledtext.hpp"
-#include "floatrectangle.hpp"
+#include "events.hpp"
 
 #include <memory>
 #include <vector>

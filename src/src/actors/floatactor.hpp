@@ -1,22 +1,23 @@
 #pragma once
 
-#include "actor.hpp"
+#include "owningactor.hpp"
 
-class FloatActor : public Actor {
+class FloatActor : virtual public OwningActor {
     public:
         FloatActor();
         FloatActor(float x, float y, float w, float h);
+        
+        const SDL_Rect* rectg() {return this->rect.get();}
+
         virtual void ChangeParentDimensions(int rw, int rh);
 
         float xg();
         float yg();
         float wg();
         float hg();
-        const SDL_Rect* rectg();
 
         virtual ~FloatActor() {};
     protected:
-        std::unique_ptr<SDL_Rect> rect;
         float x;
         float y;
         float w;

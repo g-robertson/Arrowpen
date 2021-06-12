@@ -1,5 +1,4 @@
 #include "intactor.hpp"
-
 IntActor::IntActor() {
     this->rect = std::make_unique<SDL_Rect>(SDL_Rect());
 }
@@ -16,6 +15,9 @@ IntActor::IntActor(int x, int y, int w, int h) {
     this->rect = std::make_unique<SDL_Rect>(SDL_Rect{x, y, w, h});
 }
 
-const SDL_Rect* IntActor::rectg() {
-    return this->rect.get();
+void IntActor::rects(int x, int y, int w, int h) {
+    this->rect->x = x;
+    this->rect->y = y;
+    this->rect->w = w;
+    this->rect->h = h;
 }

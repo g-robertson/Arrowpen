@@ -1,13 +1,13 @@
 #pragma once
 
-#include "actor.hpp"
+#include "owningactor.hpp"
 
-class IntActor : public Actor {
+class IntActor : virtual public OwningActor {
     public:
         IntActor();
         IntActor(const SDL_Rect& rect);
         IntActor(std::unique_ptr<SDL_Rect> rect);
         IntActor(int x, int y, int w, int h);
-        const SDL_Rect* rectg();
-        std::unique_ptr<SDL_Rect> rect;
+
+        void rects(int x, int y, int w, int h);
 };

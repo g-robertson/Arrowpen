@@ -1,6 +1,7 @@
 #include <chrono>
 #include "screens.hpp"
 #include "fullwindow.hpp"
+#include "colors.hpp"
 #include "sdlhelp.hpp"
 
 FullWindow::FullWindow(
