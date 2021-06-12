@@ -17,10 +17,9 @@ int main(int, char**) {
     auto writer = std::shared_ptr<SMWriter>(new SMWriter());
     writer->Write(song, "asdf.sm");
     */
-    
     SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
-    // context & actor initing defined externally to prevent renderer from being destructed before actors
     {
+        // context & actor initing defined externally to prevent renderer from being destructed before actors
         auto window = UPtrSDL_Window(SDL_CreateWindow("Arrowpen", 200, 200, 1000, 500, SDL_WINDOW_RESIZABLE));
         auto context = std::make_unique<SDL_Context>(SDL_Context(std::move(window)));
         auto screenTextures = Static::Screens::Init(context->renderer);
@@ -28,6 +27,5 @@ int main(int, char**) {
         fullWindow->Listen(true);
     }
     SDL_Quit();
-    
     exit(0);
 }
