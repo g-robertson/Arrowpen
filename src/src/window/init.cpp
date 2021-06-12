@@ -17,10 +17,10 @@ constexpr static int H_MIN = 400;
 
 constexpr static int W_MIN = cexprceil(static_cast<float>(H_MIN) * (static_cast<float>(W_STANDARD) / static_cast<float>(H_STANDARD)));
 
-std::unique_ptr<FullWindow> Init::Init(std::unique_ptr<SDL_Context> context) {
+std::unique_ptr<FullWindow> Init::Init(SDL_Context* context) {
     auto screen = Static::Screens::ScreenNames::TEST_SCREEN;
     auto fullWindow = std::make_unique<FullWindow>(FullWindow(
-        std::move(context),
+        context,
         screen,
         Static::Events::GenericEventHandler.get()
     ));

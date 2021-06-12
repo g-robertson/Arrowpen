@@ -6,5 +6,5 @@
 #include "SDL2/SDL.h"
 
 namespace Init {
-    std::unique_ptr<FullWindow> Init(std::unique_ptr<SDL_Context> context);
+    std::unique_ptr<FullWindow> Init(SDL_Context* context);
 }

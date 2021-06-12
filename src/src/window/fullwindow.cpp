@@ -5,11 +5,11 @@
 #include "sdlhelp.hpp"
 
 FullWindow::FullWindow(
-    std::unique_ptr<SDL_Context> context,
+    SDL_Context* context,
     Static::Screens::ScreenNames screen,
     EventHandler* eventHandler
 ) {
-    this->context = std::move(context);
+    this->context = context;
     this->screen = Static::Screens::SelectScreen(screen);
     this->globalEventHandler = eventHandler;
 }
