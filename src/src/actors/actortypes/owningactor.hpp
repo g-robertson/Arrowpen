@@ -1,10 +1,10 @@
 #pragma once
-#include "actor.hpp"
+#include <memory>
+#include "SDL2/SDL.h"
 
-class OwningActor : virtual public Actor {
+class OwningActor {
     public:
         const SDL_Rect* rectg() {return this->rect.get();}
-    
     protected:
         std::unique_ptr<SDL_Rect> rect;
 };

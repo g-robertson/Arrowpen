@@ -3,8 +3,10 @@
 #include <set>
 #include <forward_list>
 #include <list>
+#include "typedactor.hpp"
 #include "floatactor.hpp"
 
+// does not derive from actor because although it matches all virtual functions, it cannot be placed multiple times within a TopActors container
 class TopActors {
     public:
         TopActors(int usedIntX = 0, int usedIntY = 0, float usedFloatX = 0, float usedFloatY = 0);
@@ -30,7 +32,7 @@ class TopActors {
         float usedFloatX;
         float usedFloatY;
         std::set<Uint32> eventsRegistered;
-        std::forward_list<FloatActor*> floatActors;
+        std::forward_list<TypedActor<FloatActor>*> floatActors;
         std::list<std::unique_ptr<Actor, Actor_Destroy>> actors;
 
         Actor* focusedActor;

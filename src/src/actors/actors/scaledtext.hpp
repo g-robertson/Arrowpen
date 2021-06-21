@@ -1,12 +1,22 @@
 #pragma once
-#include "actor.hpp"
+#include <list>
+#include "typedactor.hpp"
 #include "fonts.hpp"
 #include "colors.hpp"
 
-class ScaledTextActor : virtual public Actor {
+template <class T>
+class ScaledTextActor : virtual public TypedActor<T> {
     public:
         ScaledTextActor(
-            const char* text, const SDL_Color& textColor = Colors::BLACK, TTF_Font* font = Fonts::Sans.get()
+            const char* text,
+            const SDL_Color& color = Colors::BLACK,
+            TTF_Font* = Fonts::Sans.get()
+        );
+        ScaledTextActor(
+            T* actor,
+            const char* text,
+            const SDL_Color& color = Colors::BLACK,
+            TTF_Font* = Fonts::Sans.get()
         );
         void Draw(UPtrSDL_Renderer& renderer);
         std::list<UPtrSDL_Texture> Init(UPtrSDL_Renderer& renderer);

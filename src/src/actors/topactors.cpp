@@ -1,4 +1,5 @@
 #include "topactors.hpp"
+
 TopActors::TopActors(int usedIntX, int usedIntY, float usedFloatX, float usedFloatY) {
     this->usedIntX = usedIntX;
     this->usedIntY = usedIntY;
@@ -12,7 +13,7 @@ TopActors::TopActors(usedIntX, usedIntY, usedFloatX, usedFloatY) {
         this->actors.emplace_back(std::unique_ptr<Actor, Actor_Destroy>(actor->second));
         // is FloatActor
         if (actor->first) {
-            this->floatActors.emplace_front(dynamic_cast<FloatActor*>(actor->second));
+            this->floatActors.emplace_front(dynamic_cast<TypedActor<FloatActor>*>(actor->second));
         }
     }
 }
@@ -23,8 +24,8 @@ TopActors::TopActors(usedIntX, usedIntY, usedFloatX, usedFloatY) {
         this->actors.emplace_back(std::unique_ptr<Actor, Actor_Destroy>(actor->second));
         // is FloatActor
         if (actor->first) {
-            this->floatActors.emplace_front(dynamic_cast<FloatActor*>(actor->second));
-            dynamic_cast<FloatActor*>(actor->second)->ChangeParentDimensions(rw, rh);
+            this->floatActors.emplace_front(dynamic_cast<TypedActor<FloatActor>*>(actor->second));
+            dynamic_cast<TypedActor<FloatActor>*>(actor->second)->ChangeParentDimensions(rw, rh);
         }
     }
 }

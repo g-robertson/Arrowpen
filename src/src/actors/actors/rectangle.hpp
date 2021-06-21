@@ -1,14 +1,16 @@
 #pragma once
-#include "actor.hpp"
+#include "typedactor.hpp"
 #include "colors.hpp"
 
-class RectangleActor : virtual public Actor {
+template <class T>
+class RectangleActor : virtual public TypedActor<T> {
     public:
-        RectangleActor();
-        RectangleActor(std::unique_ptr<SDL_Color> c, bool filled);
-        RectangleActor(const SDL_Color& c, bool filled);
+        RectangleActor(T* actor, std::unique_ptr<SDL_Color> c, bool filled = true);
+        RectangleActor(T* actor, const SDL_Color& c, bool filled = true);
+        RectangleActor(std::unique_ptr<SDL_Color> c, bool filled = true);
+        RectangleActor(const SDL_Color& c, bool filled = true);
+        
         std::unique_ptr<SDL_Color> color;
         bool filled;
-
         void Draw(UPtrSDL_Renderer& renderer);
 };

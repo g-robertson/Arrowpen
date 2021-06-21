@@ -49,3 +49,18 @@ inline bool noEventCallback(Static::Screens::Screen*, SDL_Event&) {
 // actor.hpp help
 #define NoDraw() void Draw(UPtrSDL_Renderer&) {}
 bool InBounds(int x, int y, const SDL_Rect& rect);
+
+
+// all actors help
+#define TemplateAllActors(actorName, ...) \
+    template actorName<RefActor>::actorName(RefActor* actor, __VA_ARGS__); \
+    template actorName<IntActor>::actorName(IntActor* actor, __VA_ARGS__); \
+    template actorName<FloatActor>::actorName(FloatActor* actor, __VA_ARGS__)
+
+#define TemplateAllActorsAndNone(actorName, ...) \
+    template actorName<RefActor>::actorName(RefActor* actor, __VA_ARGS__); \
+    template actorName<IntActor>::actorName(IntActor* actor, __VA_ARGS__); \
+    template actorName<FloatActor>::actorName(FloatActor* actor, __VA_ARGS__); \
+    template actorName<RefActor>::actorName(__VA_ARGS__); \
+    template actorName<IntActor>::actorName(__VA_ARGS__); \
+    template actorName<FloatActor>::actorName(__VA_ARGS__)
