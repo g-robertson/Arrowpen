@@ -11,7 +11,7 @@
 */
 
 template <class T>
-class TypedActor {};
+class TypedActor : virtual public Actor {};
 
 template <>
 class TypedActor<RefActor> : virtual public Actor {

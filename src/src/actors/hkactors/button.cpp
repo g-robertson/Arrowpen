@@ -11,7 +11,7 @@ ButtonActor<T>::ButtonActor(
     TTF_Font* font
 ) : TypedActor<T>(actor) {
     this->outerRectangleActor = std::make_unique<RectangleActor<RefActor>>(RectangleActor<RefActor>(
-        new RefActor(this->rectg()),
+        new RefActor(actor->rectg()),
         Colors::Contrast(backgroundColor, outerContrast)
     ));
     this->innerRectangleActor = std::make_unique<RectangleActor<IntActor>>(RectangleActor<IntActor>(backgroundColor));
@@ -102,15 +102,13 @@ ButtonActor<FloatActor>::ButtonActor(
 
 
 
-template <class T>
-void ButtonActor<T>::Draw(UPtrSDL_Renderer& renderer) {
+void _ButtonActor::Draw(UPtrSDL_Renderer& renderer) {
     this->outerRectangleActor->Draw(renderer);
     this->innerRectangleActor->Draw(renderer);
     this->scaledTextActor->Draw(renderer);
 }
 
-template <class T>
-bool ButtonActor<T>::Handle(Static::Screens::Screen* screen, SDL_Event& sdlEvent) {
+bool _ButtonActor::Handle(Static::Screens::Screen* screen, SDL_Event& sdlEvent) {
     switch (sdlEvent.type) {
         case SDL_MOUSEBUTTONDOWN:
         case SDL_MOUSEBUTTONUP:
@@ -140,55 +138,14 @@ bool ButtonActor<T>::Handle(Static::Screens::Screen* screen, SDL_Event& sdlEvent
     return true;
 }
 
-template <class T>
-std::list<UPtrSDL_Texture> ButtonActor<T>::Init(UPtrSDL_Renderer& renderer) {
+std::list<UPtrSDL_Texture> _ButtonActor::Init(UPtrSDL_Renderer& renderer) {
     return this->scaledTextActor->Init(renderer);
 }
 
-void ButtonActor<FloatActor>::Draw(UPtrSDL_Renderer& renderer) {
-    this->outerRectangleActor->Draw(renderer);
-    this->innerRectangleActor->Draw(renderer);
-    this->scaledTextActor->Draw(renderer);
-}
-
-bool ButtonActor<FloatActor>::Handle(Static::Screens::Screen* screen, SDL_Event& sdlEvent) {
-    switch (sdlEvent.type) {
-        case SDL_MOUSEBUTTONDOWN:
-        case SDL_MOUSEBUTTONUP:
-            if (sdlEvent.button.button == SDL_BUTTON_LEFT) {
-                switch (sdlEvent.button.state) {
-                    case SDL_PRESSED:
-                        if (!this->pressed && screen->actors->FocusedActor() == this) {
-                            Colors::Contrast(this->innerRectangleActor->color, 1.1);
-                            Colors::Contrast(this->outerRectangleActor->color, 1.1);
-                            this->pressed = true;
-                        }
-                        break;
-                    case SDL_RELEASED:
-                        if (this->pressed) {
-                            Colors::Contrast(this->innerRectangleActor->color, 1 / 1.1);
-                            Colors::Contrast(this->outerRectangleActor->color, 1 / 1.1);
-                            this->pressed = false;
-                            if (InBounds(sdlEvent.button.x, sdlEvent.button.y, *this->rectg())) {
-                                return this->onClick(screen, sdlEvent);
-                            }
-                        }
-                        break;
-                }
-            }
-            break;
-    }
-    return true;
-}
-
-std::list<UPtrSDL_Texture> ButtonActor<FloatActor>::Init(UPtrSDL_Renderer& renderer) {
-    return this->scaledTextActor->Init(renderer);
-}
 void ButtonActor<FloatActor>::ChangeParentDimensionsCallback(int, int) {
     auto mwh = std::min(this->rectg()->w, this->rectg()->h);
     auto mwhPadding = mwh * this->padding;
     auto mwhTextPadding = mwh * this->textPadding;
-    
     this->innerRectangleActor->rects(
         this->rectg()->x + std::floor(mwhPadding),
         this->rectg()->y + std::floor(mwhPadding),
