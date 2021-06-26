@@ -19,7 +19,7 @@ class TypedActor<RefActor> : virtual public Actor {
         TypedActor();
         TypedActor(RefActor* actor);
         
-        const SDL_Rect* rectg() {return this->actor->rectg();}
+        const SDL_Rect* rectg() const {return this->actor->rectg();}
     private:
         std::unique_ptr<RefActor, RefActor_Destroy> actor;
 };
@@ -35,7 +35,7 @@ class TypedActor<FloatActor> : virtual public Actor {
         float wg() {return this->actor->wg();}
         float hg() {return this->actor->hg();}
 
-        const SDL_Rect* rectg() {return this->actor->rectg();}
+        const SDL_Rect* rectg() const {return this->actor->rectg();}
     protected:
         virtual void ChangeParentDimensionsCallback(int, int) {}
     private:
@@ -49,7 +49,7 @@ class TypedActor<IntActor> : virtual public Actor {
         TypedActor(IntActor* actor);
         
         void rects(int x, int y, int w, int h);
-        const SDL_Rect* rectg() {return this->actor->rectg();}
+        const SDL_Rect* rectg() const {return this->actor->rectg();}
     protected:
         virtual void rectsCallback(int, int, int, int) {};
     private:

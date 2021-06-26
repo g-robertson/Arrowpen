@@ -4,7 +4,7 @@
 
 class OwningActor {
     public:
-        const SDL_Rect* rectg() {return this->rect.get();}
+        const SDL_Rect* rectg() const {return this->rect.get();}
     protected:
         std::unique_ptr<SDL_Rect> rect;
 };

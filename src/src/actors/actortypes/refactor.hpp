@@ -9,7 +9,7 @@ class RefActor {
         RefActor(const std::unique_ptr<SDL_Rect>& rect);
         virtual ~RefActor() {}
 
-        const SDL_Rect* rectg() {return this->rect;}
+        const SDL_Rect* rectg() const {return this->rect;}
     protected:
         const SDL_Rect* rect;
 };

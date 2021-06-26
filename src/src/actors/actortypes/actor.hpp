@@ -18,7 +18,7 @@ class Actor {
         virtual void FocusHandle(Static::Screens::Screen*, SDL_Event&) {}
         virtual std::list<UPtrSDL_Texture> Init(UPtrSDL_Renderer&) {return std::list<UPtrSDL_Texture>();}
 
-        virtual const SDL_Rect* rectg() = 0;
+        virtual const SDL_Rect* rectg() const = 0;
 };
 
 struct Actor_Destroy {

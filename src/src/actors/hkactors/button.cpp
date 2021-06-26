@@ -1,39 +1,11 @@
 #include "button.hpp"
 #include "screens.hpp"
 
-template <class T>
-ButtonActor<T>::ButtonActor(
-    T* actor,
-    const char* text,
-    const SDL_Color& textColor,
-    const SDL_Color& backgroundColor,
-    float outerContrast,
-    TTF_Font* font
-) : TypedActor<T>(actor) {
-    this->outerRectangleActor = std::make_unique<RectangleActor<RefActor>>(RectangleActor<RefActor>(
-        new RefActor(actor->rectg()),
-        Colors::Contrast(backgroundColor, outerContrast)
-    ));
-    this->innerRectangleActor = std::make_unique<RectangleActor<IntActor>>(RectangleActor<IntActor>(backgroundColor));
-    this->scaledTextActor = std::make_unique<ScaledTextActor<IntActor>>(ScaledTextActor<IntActor>(text, textColor, font));
+_ButtonActor::_ButtonActor(RefActor* actor, const char* text, const SDL_Color& textColor, const SDL_Color& backgroundColor, TTF_Font* font, float innerContrast) :
+GenericButtonActor(actor, text, textColor, *Colors::Contrast(backgroundColor, innerContrast), font) {
+    this->innerContrast = innerContrast;
 }
 
-
-template ButtonActor<RefActor>::ButtonActor(
-    RefActor* actor,
-    const char* text,
-    const SDL_Color& textColor,
-    const SDL_Color& backgroundColor,
-    float outerContrast,
-    TTF_Font* font);
-template ButtonActor<IntActor>::ButtonActor(
-    IntActor* actor,
-    const char* text,
-    const SDL_Color& textColor,
-    const SDL_Color& backgroundColor,
-    float outerContrast,
-    TTF_Font* font
-);
 ButtonActor<FloatActor>::ButtonActor(
     FloatActor* actor,
     const char* text,
@@ -41,51 +13,15 @@ ButtonActor<FloatActor>::ButtonActor(
     float textPadding,
     const SDL_Color& textColor,
     const SDL_Color& backgroundColor,
-    float outerContrast,
-    TTF_Font* font
-) : TypedActor<FloatActor>(actor) {
+    TTF_Font* font,
+    float innerContrast
+) : TypedActor<FloatActor>(actor), _ButtonActor(new RefActor(actor->rectg()), text, textColor, backgroundColor, font, innerContrast) {
+    this->depressedColor = std::make_unique<SDL_Color>(backgroundColor);
     this->padding = padding;
     this->textPadding = textPadding;
-    this->outerRectangleActor = std::make_unique<RectangleActor<RefActor>>(RectangleActor<RefActor>(
-        new RefActor(this->rectg()),
-        Colors::Contrast(backgroundColor, outerContrast)
-    ));
-    this->innerRectangleActor = std::make_unique<RectangleActor<IntActor>>(RectangleActor<IntActor>(backgroundColor));
-    this->scaledTextActor = std::make_unique<ScaledTextActor<IntActor>>(ScaledTextActor<IntActor>(text, textColor, font));
+    this->innerRectangleActor = std::make_unique<RectangleActor<IntActor>>(RectangleActor<IntActor>(*this->depressedColor.get()));
 }
 
-
-template <class T>
-ButtonActor<T>::ButtonActor(
-    T* actor,
-    const char* text,
-    event_callback_t onClickCallback,
-    const SDL_Color& textColor,
-    const SDL_Color& backgroundColor,
-    float outerContrast,
-    TTF_Font* font
-) : ButtonActor::ButtonActor(actor, text, textColor, backgroundColor, outerContrast, font) {
-    this->onClick = onClickCallback;
-}
-
-template ButtonActor<RefActor>::ButtonActor(
-    RefActor* actor,
-    const char* text,
-    event_callback_t onClickCallback,
-    const SDL_Color& textColor,
-    const SDL_Color& backgroundColor,
-    float outerContrast,
-    TTF_Font* font
-);
-template ButtonActor<IntActor>::ButtonActor(
-    IntActor* actor,
-    const char* text,
-    event_callback_t onClickCallback,
-    const SDL_Color& textColor,
-    const SDL_Color& backgroundColor,
-    float outerContrast,
-    TTF_Font* font
-);
 ButtonActor<FloatActor>::ButtonActor(
     FloatActor* actor,
     const char* text,
@@ -94,52 +30,30 @@ ButtonActor<FloatActor>::ButtonActor(
     float textPadding,
     const SDL_Color& textColor,
     const SDL_Color& backgroundColor,
-    float outerContrast,
-    TTF_Font* font
-) : ButtonActor<FloatActor>::ButtonActor(actor, text, padding, textPadding, textColor, backgroundColor, outerContrast, font) {
+    TTF_Font* font,
+    float innerContrast
+) : ButtonActor<FloatActor>::ButtonActor(actor, text, padding, textPadding, textColor, backgroundColor, font, innerContrast) {
     this->onClick = onClickCallback;
 }
 
+void _ButtonActor::OnPress() {
+    this->outerRectangleActor->color.release();
+    this->innerRectangleActor->color.release();
+    this->outerRectangleActor->color = Colors::Contrast(*Colors::Contrast(*this->depressedColor, this->innerContrast), 1.1);
+    this->innerRectangleActor->color = Colors::Contrast(*this->depressedColor, 1.1);
+}
 
+void _ButtonActor::OnDepress() {
+    this->outerRectangleActor->color.release();
+    this->innerRectangleActor->color.release();
+    this->outerRectangleActor->color = Colors::Contrast(*this->depressedColor, this->innerContrast);
+    this->innerRectangleActor->color = std::make_unique<SDL_Color>(*this->depressedColor);
+}
 
 void _ButtonActor::Draw(UPtrSDL_Renderer& renderer) {
     this->outerRectangleActor->Draw(renderer);
     this->innerRectangleActor->Draw(renderer);
     this->scaledTextActor->Draw(renderer);
-}
-
-bool _ButtonActor::Handle(Static::Screens::Screen* screen, SDL_Event& sdlEvent) {
-    switch (sdlEvent.type) {
-        case SDL_MOUSEBUTTONDOWN:
-        case SDL_MOUSEBUTTONUP:
-            if (sdlEvent.button.button == SDL_BUTTON_LEFT) {
-                switch (sdlEvent.button.state) {
-                    case SDL_PRESSED:
-                        if (!this->pressed && screen->actors->FocusedActor() == this) {
-                            Colors::Contrast(this->innerRectangleActor->color, 1.1);
-                            Colors::Contrast(this->outerRectangleActor->color, 1.1);
-                            this->pressed = true;
-                        }
-                        break;
-                    case SDL_RELEASED:
-                        if (this->pressed) {
-                            Colors::Contrast(this->innerRectangleActor->color, 1 / 1.1);
-                            Colors::Contrast(this->outerRectangleActor->color, 1 / 1.1);
-                            this->pressed = false;
-                            if (InBounds(sdlEvent.button.x, sdlEvent.button.y, *this->rectg())) {
-                                return this->onClick(screen, sdlEvent);
-                            }
-                        }
-                        break;
-                }
-            }
-            break;
-    }
-    return true;
-}
-
-std::list<UPtrSDL_Texture> _ButtonActor::Init(UPtrSDL_Renderer& renderer) {
-    return this->scaledTextActor->Init(renderer);
 }
 
 void ButtonActor<FloatActor>::ChangeParentDimensionsCallback(int, int) {

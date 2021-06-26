@@ -58,8 +58,8 @@ const std::map<Static::Screens::ScreenNames, std::shared_ptr<Static::Screens::Sc
                 FL(RectangleActor(new FloatActor(0, 1.f/8, 1, 1.f/16), Colors::PINK)),
 
                 FL(ScaledTextActor(new FloatActor(1.f/8, 0, 1.f/6, 1.f/12), "graphics is my passion")),
-                FL(ButtonActor(new FloatActor(0, 1.f/6, 1.f/3, 1.f/8), "graphics is my passion button")),
-                FL(ButtonActor(new FloatActor(1.f/6, (1.f/6) + (1.f/16), 1.f/3, 1.f/8), "graphics is my overlayed button")),
+                FL(ButtonActor<FloatActor>(new FloatActor(0, 1.f/6, 1.f/3, 1.f/8), "graphics is my passion button")),
+                FL(ButtonActor<FloatActor>(new FloatActor(1.f/6, (1.f/6) + (1.f/16), 1.f/3, 1.f/8), "graphics is my overlayed button")),
                 INT(ScaledTextActor(new IntActor(500, 300, 500, 200), "ahhhhhhhh"))
             })),
             std::make_unique<EventHandler>(EventHandler())
